@@ -1,0 +1,3402 @@
+@use "sass:math";
+
+* {
+  color: $color;
+  margin: 0;
+  min-height: 0;
+  min-width: 0;
+
+  // We use the outline properties to signal the
+  // focus properties to the Adwaita engine.
+  outline: $spacerPx solid $colorFocusOutline;
+
+  padding: 0;
+
+  // These are case-sensitive, and formatters may break them. In case
+  // of emergency: `GtkDialog`, `GtkScrollbar`, `GtkTextView`
+  // `GtkWidget`, and the rest are lower case.
+  -GtkDialog-action-area-border: 0;
+  -GtkTextView-error-underline-color: $colorBad;
+  -GtkTextView-grid-line-width: 1;
+  -GtkTextView-horizontal-separator: 4;
+  -GtkTextView-tree-line-width: 1;
+  -gtk-secondary-caret-color: $colorSelectedBackgroundSolid;
+}
+
+:backdrop:not(:hover):not(:active):not(:checked):not(:selected) {
+  color: $colorAccentHigh;
+}
+
+:disabled,
+accelerator {
+  color: $colorAccentMid;
+}
+
+:disabled {
+  -gtk-icon-effect: dim;
+}
+
+.error {
+  color: $colorBad;
+}
+
+/***************
+ * Base States *
+ ***************/
+.background {
+  @include background();
+
+  &:backdrop {
+    @include backdropBackground();
+  }
+}
+
+.gtkstyle-fallback {
+  @include background();
+
+  &:hover {
+    @include anchorHoverBackground();
+  }
+  &:active {
+    @include anchorFocusBackground();
+  }
+  &:disabled {
+  }
+  &:selected {
+    @include selectedBackground();
+  }
+}
+
+.view,
+%view {
+  @include background();
+
+  &:backdrop {
+    @include backdropBackground();
+
+    &:disabled {
+    }
+  }
+  &:disabled {
+  }
+  &:selected {
+    &:focus,
+    & {
+      @extend %selected_items;
+    }
+  }
+}
+
+.view,
+textview {
+  text {
+    @extend %view;
+
+    selection {
+      &:focus,
+      & {
+        @extend %selected_items;
+      }
+    }
+  }
+}
+
+textview border {
+  background-color: magenta;
+}
+
+iconview {
+  @extend .view;
+}
+
+.rubberband,
+rubberband {
+  background-color: $colorSelectedBackground;
+  @include border();
+}
+
+flowbox {
+  rubberband {
+    @extend rubberband;
+  }
+  flowboxchild {
+    padding: $spacer;
+
+    &:selected {
+      @extend %selected_items;
+    }
+  }
+}
+
+.content-view .tile {
+  background-color: magenta;
+
+  &:backdrop {
+  }
+  &:active,
+  &:selected {
+  }
+  &:disabled {
+  }
+}
+
+label {
+  min-height: $lineHeight;
+
+  &.separator {
+    @extend .dim-label;
+  }
+  &:selected {
+    @extend %nobg_selected_items;
+  }
+  selection {
+    @include selectedBackground();
+  }
+  &:disabled {
+    button & {
+      color: inherit;
+    }
+    &:backdrop {
+      button & {
+      }
+    }
+    selection {
+      @extend %selected_items_disabled;
+    }
+  }
+  &:backdrop {
+    selection {
+      @extend %selected_items_backdrop;
+    }
+  }
+  &.error {
+    &:disabled {
+    }
+    &:disabled:backdrop {
+    }
+  }
+}
+
+.dim-label {
+  color: $colorAccentHigh;
+}
+
+assistant {
+  .sidebar {
+    @include background();
+
+    &:backdrop {
+      @include backdropBackground();
+    }
+  }
+  &.csd .sidebar {
+  }
+  .sidebar label {
+    padding: $spacer;
+  }
+  .sidebar label.highlight {
+    @include buttonActiveBackground();
+  }
+}
+
+%osd,
+.osd {
+  @include backgroundBump();
+  @include border();
+  background-clip: padding-box;
+
+  &:backdrop {
+    @include backdropBackground();
+  }
+}
+
+separator {
+  // Workaround: Borders with background, as actual
+  // borders may be overdrawn in some cases.
+  background-color: $colorAccentLow;
+  min-height: $spacerPx;
+  min-width: $spacerPx;
+}
+
+/*********************
+ * Spinner Animation *
+ *********************/
+@keyframes spin {
+  to {
+    -gtk-icon-transform: rotate(1turn);
+  }
+}
+
+spinner {
+  -gtk-icon-source: none;
+
+  &:backdrop {
+  }
+  &:checked {
+    animation: spin $durationSpinnerAnimation linear infinite;
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+
+    &:disabled {
+    }
+  }
+}
+
+/**********************
+ * General Typography *
+ **********************/
+.large-title {
+  font-size: $fontSizeH0;
+  font-weight: bold;
+}
+
+.title-1 {
+  font-size: $fontSizeH1;
+  font-weight: bold;
+}
+
+.title-2 {
+  font-size: $fontSizeH2;
+  font-weight: unset;
+}
+
+.title-3 {
+  font-size: $fontSizeH3;
+  font-weight: unset;
+}
+
+.title-4 {
+  font-size: $fontSizeH4;
+  font-weight: bold;
+}
+
+.heading {
+  font-size: $fontSizeH5;
+  font-weight: bold;
+}
+
+.body {
+  font-size: $fontSize;
+  font-weight: unset;
+}
+
+.caption-heading {
+  font-size: $fontSizeH6;
+  font-weight: bold;
+}
+
+.caption {
+  font-size: $fontSizeSmaller;
+  font-weight: unset;
+}
+
+/****************
+ * Text Entries *
+ ****************/
+%entry,
+entry {
+  %entry_basic,
+  & {
+    @include input();
+
+    // Icons in entries.
+    image {
+      &.left {
+        margin-right: $spacer;
+      }
+      &.right {
+        margin-left: $spacer;
+      }
+    }
+    &.flat {
+      &:focus,
+      &:backdrop,
+      &:disabled,
+      &:backdrop:disabled,
+      & {
+      }
+    }
+    &:focus {
+    }
+    &:disabled {
+    }
+    &:backdrop {
+    }
+    &:backdrop:disabled {
+    }
+    selection {
+      @extend %selected_items;
+    }
+    @each $e_type in error, warning {
+      &.#{$e_type} {
+        &:focus {
+        }
+        selection {
+        }
+      }
+    }
+    image {
+      &:hover {
+      }
+      &:active {
+      }
+      &:backdrop {
+      }
+    }
+    &:drop(active) {
+      &:focus,
+      & {
+      }
+    }
+    .osd & {
+      &:focus {
+      }
+      &:backdrop {
+      }
+      &:disabled {
+      }
+    }
+  }
+  progress {
+    border-bottom: $widthBorderDentStart solid $colorHighlightBackgroundSolid;
+
+    &:backdrop {
+    }
+  }
+  .linked:not(.vertical) > & {
+    @extend %linked;
+  }
+  .linked:not(.vertical) > &:focus + &,
+  .linked:not(.vertical) > &:focus + button,
+  .linked:not(.vertical) > &:focus + combobox > box > button.combo {
+  }
+  .linked:not(.vertical) > &:focus.error + &,
+  .linked:not(.vertical) > &:focus.error + button,
+  .linked:not(.vertical) > &:focus.error + combobox > box > button.combo {
+  }
+  .linked:not(.vertical) > &:drop(active) + &,
+  .linked:not(.vertical) > &:drop(active) + button,
+  .linked:not(.vertical) > &:drop(active) + combobox > box > button.combo {
+  }
+  .linked.vertical > & {
+    @extend %linked_vertical;
+
+    &:not(:disabled) + entry:not(:disabled),
+    &:not(:disabled) + %entry:not(:disabled) {
+      &:backdrop {
+      }
+    }
+    &:disabled + %entry:disabled,
+    &:disabled + entry:disabled {
+    }
+    // `:not(:only-child)` is a specificity bump.
+    + %entry:focus:not(:only-child),
+    + entry:focus:not(:only-child) {
+    }
+    + %entry:focus.error:not(:only-child),
+    + entry:focus.error:not(:only-child) {
+    }
+    + %entry:drop(active):not(:only-child),
+    + entry:drop(active):not(:only-child) {
+    }
+    // `:not(:only-child)` is a specificity bump.
+    &:focus:not(:only-child) {
+      + %entry,
+      + entry,
+      + button,
+      + combobox > box > button.combo {
+      }
+    }
+    &:focus.error:not(:only-child) {
+      + %entry,
+      + entry,
+      + button,
+      + combobox > box > button.combo {
+      }
+    }
+    &:drop(active):not(:only-child) {
+      + %entry,
+      + entry,
+      + button,
+      + combobox > box > button.combo {
+      }
+    }
+  }
+  &.error {
+  }
+}
+
+treeview entry {
+  &:focus {
+    // Specificity bump.
+    &:dir(rtl),
+    &:dir(ltr) {
+    }
+  }
+  &.flat,
+  & {
+    &:focus {
+    }
+  }
+}
+
+.entry-tag {
+  background-color: magenta;
+  color: magenta;
+
+  :dir(ltr) & {
+  }
+  :dir(rtl) & {
+  }
+  &:hover {
+  }
+  :backdrop & {
+  }
+  &.button {
+  }
+  :not(:backdrop) &.button {
+    &:hover {
+    }
+    &:active {
+    }
+  }
+}
+
+/***********
+ * Buttons *
+ ***********/
+%button,
+button {
+  @at-root %button_basic,
+    & {
+    @include button();
+
+    @at-root %button_basic_flat,
+      &.flat {
+      &:hover {
+        &:active {
+        }
+      }
+    }
+    &:hover {
+    }
+    &:active,
+    &:checked {
+    }
+    &:backdrop {
+      &.flat,
+      & {
+        &:active,
+        &:checked {
+        }
+        &:disabled {
+          &:active,
+          &:checked {
+          }
+        }
+      }
+    }
+    @at-root %button_basic_flat,
+      &.flat {
+      &:backdrop,
+      &:disabled,
+      &:backdrop:disabled {
+      }
+    }
+    &:disabled {
+      &:active,
+      &:checked {
+      }
+    }
+    &.image-button {
+    }
+    &.text-button {
+    }
+    &.text-button.image-button {
+      label {
+      }
+    }
+    @at-root %button_basic_drop_active,
+      &:drop(active) {
+    }
+  }
+  @at-root %button_selected,
+    & {
+    row:selected & {
+    }
+    @at-root %button_selected_flat,
+      &.flat {
+      row:selected & {
+        // sic
+        &:not(:active):not(:checked):not(:hover):not(disabled) {
+          &:backdrop {
+          }
+        }
+      }
+    }
+  }
+  &.osd {
+    &.image-button {
+    }
+    &:hover {
+    }
+    &:active,
+    &:checked {
+    }
+    &:disabled {
+      &:backdrop,
+      & {
+      }
+    }
+    &:backdrop {
+    }
+  }
+  @at-root %osd_button,
+    .osd & {
+    &:hover {
+    }
+    &:active,
+    &:checked {
+      &:backdrop,
+      & {
+      }
+    }
+    &:disabled {
+      &:backdrop,
+      & {
+      }
+    }
+    &:backdrop {
+    }
+    &.flat {
+      &:hover {
+      }
+      &:disabled {
+      }
+      &:backdrop {
+      }
+      &:active,
+      &:checked {
+      }
+    }
+  }
+  @each $b_type in suggested-action, destructive-action {
+    &.#{$b_type} {
+      &.flat {
+      }
+      &:hover {
+      }
+      &:active,
+      &:checked {
+      }
+      &:backdrop,
+      &.flat:backdrop {
+        &:active,
+        &:checked {
+        }
+        &:disabled {
+          &:active,
+          &:checked {
+          }
+        }
+      }
+      &.flat {
+        &:backdrop,
+        &:disabled,
+        &:backdrop:disabled {
+        }
+      }
+      &:disabled {
+        &:active,
+        &:checked {
+        }
+      }
+      .osd & {
+        &:hover {
+        }
+        &:active,
+        &:checked {
+          &:backdrop,
+          & {
+          }
+        }
+        &:disabled {
+          &:backdrop,
+          & {
+          }
+        }
+        &:backdrop {
+        }
+      }
+    }
+  }
+  .stack-switcher > & {
+    > label {
+    }
+    > image {
+    }
+    &.text-button {
+    }
+    &.image-button {
+    }
+    &.needs-attention {
+      > label,
+      > image {
+        @extend %needs_attention;
+      }
+      &:active,
+      &:checked {
+        > label,
+        > image {
+        }
+      }
+    }
+  }
+  &.font,
+  &.file {
+    separator {
+    }
+  }
+  &.font {
+    > box > box > label {
+    }
+  }
+  .inline-toolbar & {
+    @extend %linked;
+  }
+  .primary-toolbar & {
+  }
+  .linked > & {
+    @extend %linked;
+  }
+  .linked.vertical > & {
+    @extend %linked_vertical;
+  }
+  &.circular {
+    label {
+    }
+    &:not(.flat):not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
+    }
+    &:hover:not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
+    }
+  }
+}
+
+%needs_attention {
+  &:backdrop {
+  }
+  &:dir(rtl) {
+  }
+}
+
+// `+|-` buttons on inline toolbars.
+.inline-toolbar toolbutton > button {
+  &:hover {
+  }
+  &:active,
+  &:checked {
+  }
+  &:disabled {
+    &:active,
+    &:checked {
+    }
+  }
+  &:backdrop {
+    &:active,
+    &:checked {
+    }
+    &:disabled {
+      &:active,
+      &:checked {
+      }
+    }
+  }
+}
+
+toolbar.inline-toolbar toolbutton {
+  > button.flat {
+    @extend %linked_middle;
+  }
+  &:first-child > button.flat {
+    @extend %linked_left;
+  }
+  &:last-child > button.flat {
+    @extend %linked_right;
+  }
+  &:only-child > button.flat {
+    @extend %linked_only_child;
+  }
+}
+
+%linked_middle {
+}
+
+%linked_left {
+}
+
+%linked_right {
+}
+
+%linked_only_child {
+}
+
+// `.linked` assumes Box, which reverses nodes
+//  in RTL, so 1st child is always left.
+%linked {
+  @extend %linked_middle;
+
+  &:first-child {
+    @extend %linked_left;
+  }
+  &:last-child {
+    @extend %linked_right;
+  }
+  &:only-child {
+    @extend %linked_only_child;
+  }
+}
+
+// Other widgets use widget child order, so 1st/last child is at text start/end.
+%linked_flippable {
+  @extend %linked_middle;
+
+  &:dir(ltr) {
+    &:first-child {
+      @extend %linked_left;
+    }
+    &:last-child {
+      @extend %linked_right;
+    }
+  }
+  &:dir(rtl) {
+    &:first-child {
+      @extend %linked_right;
+    }
+    &:last-child {
+      @extend %linked_left;
+    }
+  }
+  &:only-child {
+    @extend %linked_only_child;
+  }
+}
+
+%linked_vertical_middle {
+}
+
+%linked_vertical_top {
+}
+
+%linked_vertical_bottom {
+}
+
+%linked_vertical_only_child {
+}
+
+%linked_vertical {
+  @extend %linked_vertical_middle;
+
+  &:first-child {
+    @extend %linked_vertical_top;
+  }
+  &:last-child {
+    @extend %linked_vertical_bottom;
+  }
+  &:only-child {
+    @extend %linked_vertical_only_child;
+  }
+}
+
+%undecorated_button {
+}
+
+// Menu buttons.
+modelbutton.flat,
+.menuitem.button.flat {
+  @extend %undecorated_button;
+  padding: $spacer;
+
+  &:hover {
+    @include buttonHoverBackground();
+  }
+  &:active {
+    @include buttonActiveBackground();
+  }
+  &:selected {
+    @extend %selected_items;
+  }
+  &:backdrop,
+  &:backdrop:hover {
+    @extend %undecorated_button;
+  }
+  check,
+  radio {
+    margin-left: $spacer;
+  }
+}
+
+modelbutton.flat arrow {
+  &:hover {
+  }
+  &.left {
+    -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
+  }
+  &.right {
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+  }
+}
+
+button.color {
+  colorswatch:only-child {
+    &,
+    overlay {
+    }
+  }
+}
+
+// List buttons.
+list row button.image-button:not(.flat) {
+  @extend %undecorated_button;
+
+  &:hover {
+  }
+  &:active,
+  &:checked {
+  }
+}
+
+/*********
+ * Links *
+ *********/
+%link,
+*:link {
+  &:visited {
+    *:selected & {
+    }
+  }
+  &:hover {
+    @include anchorHoverBackground();
+    color: $colorAnchorHover;
+
+    *:selected & {
+    }
+  }
+  &:active {
+    @include anchorFocusBackground();
+    color: $colorAnchorFocus;
+
+    *:selected & {
+    }
+  }
+  &:disabled,
+  &:disabled:backdrop {
+  }
+  &:backdrop {
+    &:backdrop:hover,
+    &:backdrop:hover:selected,
+    & {
+    }
+  }
+  @at-root %link_selected,
+    &:selected,
+    *:selected & {
+  }
+  &:not(:disabled) {
+    color: $colorAnchor;
+  }
+}
+
+button:link,
+button:visited {
+  @extend %undecorated_button;
+  @extend %link;
+
+  &:hover,
+  &:active,
+  &:checked {
+    @extend %undecorated_button;
+    @include buttonHoverBackground();
+  }
+  > label {
+    @extend %link;
+    text-decoration-line: underline;
+  }
+}
+
+/*****************
+ * GtkSpinButton *
+ *****************/
+spinbutton {
+  font-feature-settings: "tnum";
+
+  &:not(.vertical) {
+    // In the horizontal configuration, the whole spinbutton
+    // behaves as an entry. So we extend the styling of
+    // entries and negate that of its internal entry.
+    @extend %entry;
+    padding: unset;
+
+    %spinbutton_horz_entry {
+      background: unset;
+      border: unset;
+      margin-left: $spacer;
+      margin-right: $spacer;
+
+      &:backdrop:disabled {
+      }
+    }
+    entry {
+      @extend %spinbutton_horz_entry;
+    }
+    button {
+      margin-top: -$widthBorderDentStart;
+      margin-bottom: -$widthBorderDentEnd;
+
+      &:dir(rtl) {
+      }
+      &:hover {
+      }
+      &:disabled {
+      }
+      &:active {
+      }
+      &:backdrop {
+      }
+      &:backdrop:disabled {
+        &:dir(rtl) {
+        }
+      }
+      &:dir(ltr):last-child {
+        margin-right: -$widthBorderDentEnd;
+      }
+      &:dir(rtl):first-child {
+        margin-left: -$widthBorderDentStart;
+      }
+    }
+  }
+  .osd &:not(.vertical) {
+    entry {
+      @extend %spinbutton_horz_entry;
+    }
+    button {
+      &:dir(rtl) {
+      }
+      &:hover {
+      }
+      &:backdrop {
+      }
+      &:disabled {
+      }
+      &:dir(ltr):last-child {
+      }
+      &:dir(rtl):first-child {
+      }
+    }
+  }
+  &.vertical {
+    // In the vertical configuration, we treat the spinbutton as a box.
+    &:disabled {
+    }
+    &:backdrop:disabled {
+    }
+    &:drop(active) {
+    }
+    entry {
+    }
+    button {
+      &.up {
+        @extend %top_button;
+      }
+      &.down {
+        @extend %bottom_button;
+      }
+    }
+    %top_button {
+    }
+    %bottom_button {
+    }
+  }
+  .osd &.vertical button:first-child {
+    &:hover {
+    }
+    &:active {
+    }
+    &:disabled {
+    }
+    &:backdrop {
+    }
+  }
+  treeview &:not(.vertical) {
+    entry {
+    }
+  }
+}
+
+/**************
+ * Comboboxes *
+ **************/
+combobox {
+  arrow {
+    min-height: $widthIcon;
+    min-width: $widthIcon;
+    -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+  }
+  &.linked {
+    button:nth-child(2) {
+      &:dir(ltr) {
+        @extend %linked_right;
+      }
+      &:dir(rtl) {
+        @extend %linked_left;
+      }
+    }
+  }
+  &:drop(active) {
+    button.combo {
+      @extend %button_basic_drop_active;
+    }
+  }
+}
+
+.linked:not(.vertical) > combobox > box > button.combo {
+  @extend %linked_middle;
+}
+
+.linked:not(.vertical) > combobox:first-child > box > button.combo {
+  @extend %linked_left;
+}
+
+.linked:not(.vertical) > combobox:last-child > box > button.combo {
+  @extend %linked_right;
+}
+
+.linked:not(.vertical) > combobox:only-child > box > button.combo {
+  @extend %linked_only_child;
+}
+
+.linked.vertical > combobox > box > button.combo {
+  @extend %linked_vertical_middle;
+}
+
+.linked.vertical > combobox:first-child > box > button.combo {
+  @extend %linked_vertical_top;
+}
+
+.linked.vertical > combobox:last-child > box > button.combo {
+  @extend %linked_vertical_bottom;
+}
+
+.linked.vertical > combobox:only-child > box > button.combo {
+  @extend %linked_vertical_only_child;
+}
+
+/************
+ * Toolbars *
+ ************/
+%toolbar {
+  -GtkWidget-window-dragging: true;
+}
+
+toolbar {
+  @extend %toolbar;
+
+  .osd & {
+  }
+  &.osd {
+    &.left,
+    &.right,
+    &.top,
+    &.bottom {
+    }
+  }
+  &.horizontal separator {
+    margin-left: $spacer;
+    margin-right: $spacer;
+  }
+  &.vertical separator {
+    margin-top: $spacer;
+    margin-bottom: $spacer;
+  }
+  &:not(.inline-toolbar):not(.osd) {
+    > *:not(.toggle):not(.popup) > * {
+    }
+  }
+}
+
+.inline-toolbar {
+  @extend %toolbar;
+  @extend %darkbar;
+}
+
+searchbar > revealer > box,
+.location-bar {
+  @extend %toolbar;
+  @extend %darkbar;
+}
+
+searchbar > revealer > box {
+}
+
+%darkbar {
+  &:backdrop {
+  }
+}
+
+/**************
+ * Headerbars *
+ **************/
+%titlebar,
+headerbar {
+  @include backgroundBump();
+  @include borderColor();
+  @include borderWidth();
+  border-bottom-style: solid;
+  padding: $spacer;
+
+  &:backdrop {
+    @include backdropBackground();
+  }
+  .title {
+    font-weight: bold;
+  }
+  .subtitle {
+    font-style: italic;
+  }
+  stackswitcher button:checked,
+  button.toggle:checked {
+    &:backdrop {
+    }
+  }
+  .selection-mode &,
+  &.selection-mode {
+    &:backdrop {
+      label {
+      }
+    }
+    .subtitle:link {
+      @extend %link_selected;
+    }
+    button {
+      @at-root %selection_mode_button_flat,
+        &.flat {
+      }
+      &:hover {
+      }
+      &:active,
+      &:checked,
+      &.toggle:checked,
+      &.toggle:active {
+      }
+      &:backdrop {
+        &.flat,
+        & {
+          &:active,
+          &:checked {
+          }
+          &:disabled {
+            &:active,
+            &:checked {
+            }
+          }
+        }
+      }
+      @at-root %selection_mode_button_flat,
+        &.flat {
+        &:backdrop,
+        &:disabled,
+        &:backdrop:disabled {
+        }
+      }
+      &:disabled {
+        &:active,
+        &:checked {
+        }
+      }
+      &.suggested-action {
+        &:hover {
+        }
+        &:active {
+        }
+        &:disabled {
+        }
+        &:backdrop {
+        }
+        &:backdrop:disabled {
+        }
+      }
+    }
+    .selection-menu {
+      &:backdrop,
+      & {
+        arrow {
+        }
+        .arrow {
+        }
+      }
+    }
+  }
+  .tiled &,
+  .tiled-top &,
+  .tiled-right &,
+  .tiled-bottom &,
+  .tiled-left &,
+  .maximized &,
+  .fullscreen & {
+    &:backdrop,
+    & {
+    }
+  }
+  &.default-decoration {
+    button.titlebutton {
+    }
+  }
+  separator.titlebutton {
+  }
+  .solid-csd & {
+    &:backdrop,
+    & {
+      // Specificity bump.
+      &:dir(rtl),
+      &:dir(ltr) {
+      }
+    }
+  }
+}
+
+headerbar {
+  entry,
+  spinbutton,
+  separator:not(.sidebar),
+  button {
+  }
+  switch {
+  }
+  &.titlebar headerbar:not(.titlebar) {
+  }
+}
+
+.background .titlebar {
+  &:backdrop,
+  & {
+  }
+}
+
+.background.tiled .titlebar,
+.background.tiled-top .titlebar,
+.background.tiled-right .titlebar,
+.background.tiled-bottom .titlebar,
+.background.tiled-left .titlebar,
+.background.maximized .titlebar,
+.background.solid-csd .titlebar {
+  &:backdrop,
+  & {
+  }
+}
+
+headerbar {
+  window separator:first-child + &,
+  window &:first-child {
+    &:backdrop,
+    & {
+    }
+  }
+  window &:last-child {
+    &:backdrop,
+    & {
+    }
+  }
+  window stack & {
+    &:first-child,
+    &:last-child {
+      &:backdrop,
+      & {
+      }
+    }
+  }
+  window.tiled &,
+  window.tiled-top &,
+  window.tiled-right &,
+  window.tiled-bottom &,
+  window.tiled-left &,
+  window.maximized &,
+  window.fullscreen &,
+  window.solid-csd & {
+    &,
+    &:backdrop {
+      &,
+      &:first-child,
+      &:last-child,
+      &:only-child {
+      }
+    }
+  }
+}
+
+.titlebar:not(headerbar) {
+  @extend %titlebar;
+
+  window.csd > & {
+    // With CSD, we assume that every titlebar is a headerbar.
+  }
+  separator {
+  }
+}
+
+window.devel {
+  headerbar.titlebar:not(.selection-mode) {
+    .title {
+      color: $colorTechnical;
+    }
+    &:backdrop {
+      color: $colorTechnical;
+    }
+  }
+}
+
+/************
+ * Pathbars *
+ ************/
+// We select on `filechooser` to avoid interfering with `NautilusPathBar`.
+filechooser .path-bar.linked > button {
+  @extend %linked_flippable;
+}
+
+.path-bar button {
+  &.text-button,
+  &.image-button,
+  & {
+  }
+  &.text-button.image-button label {
+  }
+  &.text-button.image-button,
+  & {
+    label:last-child {
+    }
+    label:first-child {
+    }
+  }
+  image {
+  }
+  &.slider-button {
+  }
+}
+
+/**************
+ * Tree Views *
+ **************/
+treeview.view {
+  @include borderColor();
+  @include borderWidth();
+  // Thunar.
+  outline-offset: -1px;
+
+  @at-root * {
+  }
+  rubberband {
+    @extend rubberband;
+  }
+  &:selected {
+    &:focus,
+    & {
+      @extend %selected_items;
+    }
+    &:backdrop,
+    & {
+    }
+  }
+  &:disabled {
+    &:selected {
+      &:backdrop {
+      }
+    }
+    &:backdrop {
+    }
+  }
+  &.separator {
+    &:backdrop {
+    }
+  }
+  &:backdrop {
+  }
+  &:drop(active) {
+    @include borderStyle();
+    @include inputHoverBorder();
+
+    &.after {
+    }
+    &.before {
+    }
+  }
+  &.expander {
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+
+    &:dir(rtl) {
+      -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
+    }
+    &:hover {
+    }
+    &:selected {
+      &:hover {
+      }
+      &:backdrop {
+      }
+    }
+    &:checked {
+      -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+    }
+    &:backdrop {
+    }
+  }
+  &.progressbar {
+    &:selected {
+      &:focus,
+      & {
+        &:backdrop {
+        }
+      }
+    }
+    &:backdrop {
+    }
+  }
+  &.trough {
+    &:selected {
+      &:focus,
+      & {
+      }
+    }
+  }
+  header {
+    button {
+      @extend %column_header_button;
+      &:hover {
+        @extend %column_header_button;
+      }
+      &:active {
+        @extend %column_header_button;
+      }
+    }
+  }
+  button.dnd,
+  header.button.dnd {
+    &:active,
+    &:selected,
+    &:hover,
+    & {
+    }
+  }
+  acceleditor > label {
+  }
+  &:hover {
+    @include hoverBackground();
+  }
+}
+
+%column_header_button {
+  &:disabled {
+  }
+  &:backdrop {
+    &:disabled {
+    }
+  }
+  &:last-child {
+    &:backdrop,
+    & {
+    }
+  }
+}
+
+/*********
+ * Menus *
+ *********/
+menubar,
+.menubar {
+  -GtkWidget-window-dragging: true;
+
+  &:backdrop {
+  }
+  > menuitem {
+    padding-top: $spacer;
+    padding-left: $spacer2;
+    padding-right: $spacer2;
+    padding-bottom: $spacer;
+
+    menu {
+      // Specificity bump.
+      &:dir(rtl),
+      &:dir(ltr) {
+      }
+    }
+    &:hover {
+      @include buttonHoverBackground();
+    }
+    &:disabled {
+    }
+  }
+  .csd.popup decoration {
+  }
+}
+
+.background.popup {
+}
+
+menu,
+.menu,
+.context-menu {
+  @include backgroundBump();
+  @include borderBump();
+
+  .csd & {
+    // Removes borders in a composited environment.
+    border: unset;
+  }
+  &:backdrop {
+    @include backdropBackground();
+  }
+  menuitem {
+    padding: $spacer;
+
+    &:hover {
+      @include buttonHoverBackground();
+    }
+    &:disabled {
+      &:backdrop {
+        @include backdropBackground();
+      }
+      // Chromium.
+      & label {
+        color: $colorAccentMid;
+      }
+    }
+    &:backdrop,
+    &:backdrop:hover {
+      @include backdropBackground();
+    }
+    // Submenu arrows.
+    arrow {
+      min-height: $widthIcon;
+      min-width: $widthIcon;
+
+      &:dir(ltr) {
+        margin-left: $spacer2;
+        margin-right: -$spacer;
+        -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+      }
+      &:dir(rtl) {
+        margin-left: -$spacer;
+        margin-right: $spacer2;
+        -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
+      }
+    }
+    label {
+      &:dir(rtl),
+      &:dir(ltr) {
+        // Avoids label color being overridden, see
+        // https://bugzilla.gnome.org/show_bug.cgi?id=767058
+        color: inherit;
+        // Firefox.
+        min-height: 0;
+      }
+    }
+  }
+  // Overflow arrows.
+  > arrow {
+    min-height: $widthIcon;
+    min-width: $widthIcon;
+    padding: $spacer;
+
+    &.top {
+      -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+    }
+    &.bottom {
+      -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+    }
+    &:hover {
+      @include buttonHoverBackground();
+    }
+    &:backdrop {
+    }
+    &:disabled {
+    }
+  }
+  > separator {
+    @include borderColorBump();
+    @include borderWidth();
+    background-color: unset;
+    border-top-style: solid;
+  }
+}
+
+menuitem {
+  accelerator {
+  }
+  check,
+  radio {
+    &:dir(ltr) {
+      margin-right: $spacer;
+    }
+    &:dir(rtl) {
+      margin-left: $spacer;
+    }
+  }
+}
+
+/************
+ * Popovers *
+ ************/
+popover.background {
+  @include backgroundBump();
+
+  .csd &,
+  & {
+    @include borderBump();
+  }
+  .csd & {
+    background-clip: padding-box;
+  }
+  &:backdrop {
+    @include backdropBackground();
+  }
+  > list,
+  > .view,
+  > toolbar {
+  }
+  .csd &,
+  & {
+    &.touch-selection,
+    &.magnifier {
+      @extend %osd;
+
+      button {
+        @extend %osd_button;
+      }
+    }
+    &.osd {
+      @extend %osd;
+    }
+  }
+  separator {
+  }
+  list separator {
+  }
+}
+
+/*************
+ * Notebooks *
+ *************/
+notebook {
+  > header {
+    @include borderColor();
+    @include borderWidth();
+
+    &:backdrop {
+    }
+    tabs {
+      margin: -$spacerPx;
+    }
+    &.top {
+      border-bottom-style: solid;
+
+      > tabs {
+        > tab {
+          border-bottom-width: $spacerPx;
+
+          &:hover {
+          }
+          &:backdrop {
+          }
+          &:checked {
+          }
+        }
+      }
+    }
+    &.bottom {
+      border-top-style: solid;
+
+      > tabs {
+        > tab {
+          border-top-width: $spacerPx;
+
+          &:hover {
+          }
+          &:backdrop {
+          }
+          &:checked {
+          }
+        }
+      }
+    }
+    &.left {
+      border-right-style: solid;
+
+      > tabs {
+        > tab {
+          border-right-width: $spacerPx;
+
+          &:hover {
+          }
+          &:backdrop {
+          }
+          &:checked {
+          }
+        }
+      }
+    }
+    &.right {
+      border-left-style: solid;
+
+      > tabs {
+        > tab {
+          border-left-width: $spacerPx;
+
+          &:hover {
+          }
+          &:backdrop {
+          }
+          &:checked {
+          }
+        }
+      }
+    }
+    &.top > tabs > arrow {
+      @extend %notebook_vert_arrows;
+    }
+    &.bottom > tabs > arrow {
+      @extend %notebook_vert_arrows;
+    }
+    @at-root %notebook_vert_arrows {
+      &.down {
+        -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
+      }
+      &.up {
+        -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+      }
+    }
+    &.left > tabs > arrow {
+      @extend %notebook_horz_arrows;
+    }
+    &.right > tabs > arrow {
+      @extend %notebook_horz_arrows;
+    }
+    @at-root %notebook_horz_arrows {
+      &.down {
+        -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+      }
+      &.up {
+        -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+      }
+    }
+    > tabs > arrow {
+      @extend %button_basic;
+      @extend %button_basic_flat;
+
+      &:hover:not(:active):not(:backdrop) {
+        background-clip: padding-box;
+      }
+      &:disabled {
+      }
+    }
+
+    tab {
+      @include button();
+
+      &:hover {
+        &.reorderable-page {
+        }
+      }
+      &:backdrop {
+        &.reorderable-page {
+        }
+      }
+      &:checked {
+        &.reorderable-page {
+          &:hover {
+          }
+        }
+      }
+      &:backdrop:checked {
+        &.reorderable-page {
+        }
+      }
+      button.flat {
+        &:hover {
+        }
+        &,
+        &:backdrop {
+        }
+        &:last-child {
+          margin-left: $spacer;
+        }
+        &:first-child {
+          margin-right: $spacer;
+        }
+      }
+    }
+    &.top,
+    &.bottom {
+      tabs {
+        &:not(:only-child) {
+          &:first-child {
+          }
+          &:last-child {
+          }
+        }
+        tab {
+          &.reorderable-page {
+          }
+        }
+      }
+    }
+    &.left,
+    &.right {
+      tabs {
+        &:not(:only-child) {
+          &:first-child {
+          }
+          &:last-child {
+          }
+        }
+        tab {
+          &.reorderable-page {
+          }
+        }
+      }
+    }
+    &.top tab {
+    }
+    &.bottom tab {
+    }
+  }
+  // `:not(:only-child)` is for "hidden" notebooks.
+  > stack:not(:only-child) {
+    &:backdrop {
+    }
+  }
+}
+
+/**************
+ * Scrollbars *
+ **************/
+scrollbar {
+  @at-root * {
+    -GtkScrollbar-has-backward-stepper: true;
+    -GtkScrollbar-has-forward-stepper: true;
+  }
+  &.top {
+  }
+  &.bottom {
+  }
+  &.left {
+  }
+  &.right {
+  }
+  &:backdrop {
+  }
+  slider {
+    @include button();
+    background-clip: padding-box;
+    min-height: $widthScrollbar;
+    min-width: $widthScrollbar;
+    padding: unset;
+
+    &:hover {
+    }
+    &:hover:active {
+    }
+    &:backdrop {
+    }
+    &:disabled {
+    }
+  }
+  &.fine-tune {
+    slider {
+    }
+    &.horizontal slider {
+    }
+    &.vertical slider {
+    }
+  }
+  &.overlay-indicator {
+    &:not(.dragging):not(.hovering) {
+      opacity: $opacityScrollbarOverlay;
+
+      slider {
+        background-color: $color;
+        border: unset;
+        min-height: $widthScrollbarOverlay;
+        min-width: $widthScrollbarOverlay;
+      }
+      button {
+        border: unset;
+        min-height: $widthScrollbarOverlay;
+        min-width: $widthScrollbarOverlay;
+      }
+      &.horizontal {
+        slider {
+        }
+        button {
+        }
+      }
+      &.vertical {
+        slider {
+        }
+        button {
+        }
+      }
+    }
+    &.dragging,
+    &.hovering {
+      opacity: $opacityScrollbar;
+    }
+  }
+  &.horizontal slider {
+  }
+  &.vertical slider {
+  }
+  button {
+    background-clip: padding-box;
+    min-height: $widthScrollbar;
+    min-width: $widthScrollbar;
+    padding: unset;
+
+    &:hover {
+    }
+    &:active,
+    &:checked {
+    }
+    &:disabled {
+    }
+    &:backdrop {
+      &:disabled {
+      }
+    }
+  }
+  // Button icons.
+  &.vertical {
+    button {
+      &.down {
+        -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+      }
+      &.up {
+        -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+      }
+    }
+  }
+  &.horizontal {
+    button {
+      &.down {
+        -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+      }
+      &.up {
+        -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
+      }
+    }
+  }
+}
+
+treeview ~ scrollbar.vertical {
+}
+
+/************
+ * Switches *
+ ************/
+switch {
+  @include backgroundDent();
+  @include border();
+
+  &:checked {
+  }
+  &:disabled {
+  }
+  &:backdrop {
+    &:checked {
+    }
+    &:disabled {
+    }
+  }
+  slider {
+    @include button();
+    margin: -$spacerPx;
+    min-width: $lineHeight;
+    min-height: $lineHeight;
+    padding: unset;
+  }
+  image {
+  }
+  &:hover slider {
+  }
+  &:checked > slider {
+  }
+  &:disabled slider {
+  }
+  &:backdrop {
+    slider {
+    }
+    &:checked > slider {
+    }
+    &:disabled slider {
+    }
+  }
+  row:selected & {
+  }
+}
+
+/***********************
+ * Check + Radio Items *
+ ***********************/
+@each $check_state in "", ":hover", ":active", ":backdrop", ":checked",
+  ":checked:hover", ":checked:active", ":backdrop:checked"
+{
+  .view.content-view.check#{$check_state}:not(list),
+  .content-view:not(list) check#{$check_state} {
+  }
+}
+
+checkbutton.text-button,
+radiobutton.text-button {
+  padding: $spacer;
+
+  label:not(:only-child) {
+    &:first-child {
+      margin-left: $spacer;
+    }
+    &:last-child {
+      margin-right: $spacer;
+    }
+  }
+  &:hover {
+    @include hoverBackground();
+  }
+}
+
+check,
+radio {
+  @include backgroundDent();
+  @include borderStyle();
+  @include borderWidth();
+  border-color: $colorAccentHigh;
+  min-height: $widthIcon;
+  min-width: $widthIcon;
+  -gtk-icon-transform: scale($scaleCheck);
+
+  &:only-child {
+    margin: unset;
+  }
+  popover & {
+    // In a popover, reset the end margin, see
+    // https://bugzilla.gnome.org/show_bug.cgi?id=779570
+    &.left:dir(rtl) {
+      margin-left: unset;
+    }
+    &.right:dir(ltr) {
+      margin-right: unset;
+    }
+  }
+  & {
+    @each $state in "", ":hover", ":active", ":disabled", ":backdrop",
+      ":backdrop:disabled"
+    {
+      &#{$state} {
+      }
+    }
+  }
+  & {
+    @each $t in ":checked", ":indeterminate" {
+      &#{$t} {
+        @each $state in "", ":hover", ":active", ":disabled", ":backdrop",
+          ":backdrop:disabled"
+        {
+          &#{$state} {
+          }
+        }
+      }
+    }
+  }
+  &:backdrop {
+  }
+  .osd & {
+    &:hover {
+    }
+    &:active {
+    }
+    &:backdrop {
+    }
+    &:disabled {
+    }
+  }
+  menu menuitem & {
+    &,
+    &:checked,
+    &:indeterminate {
+      &,
+      &:hover,
+      &:disabled {
+      }
+    }
+  }
+  &:disabled,
+  &:backdrop:disabled {
+    border-color: $colorAccentLow;
+  }
+  &:first-child {
+    margin-right: $spacer;
+  }
+  &:last-child {
+    margin-left: $spacer;
+  }
+  &:hover {
+    @include buttonHoverBackground();
+  }
+  &:active {
+    @include buttonActiveBackground();
+  }
+}
+
+%check,
+check {
+  &:checked {
+    -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+  }
+  &:indeterminate {
+    -gtk-icon-source: -gtk-icontheme("list-remove-symbolic");
+  }
+}
+
+%radio,
+radio {
+  border-radius: 50%;
+
+  &:checked {
+    -gtk-icon-source: -gtk-icontheme("media-record-symbolic");
+  }
+  &:indeterminate {
+    -gtk-icon-source: -gtk-icontheme("list-remove-symbolic");
+  }
+}
+
+radio:not(:indeterminate):not(:checked):active:not(:backdrop) {
+}
+
+check:not(:indeterminate):not(:checked):active:not(:backdrop) {
+}
+
+radio,
+check {
+  &:active {
+  }
+  &:checked:not(:backdrop),
+  &:indeterminate:not(:backdrop) {
+  }
+}
+
+menu menuitem {
+  radio,
+  check {
+    &:checked:not(:backdrop),
+    &:indeterminate:not(:backdrop) {
+    }
+  }
+}
+
+treeview.view check,
+treeview.view radio {
+  &:selected {
+    &:focus,
+    & {
+    }
+  }
+}
+
+treeview.view radio:selected {
+  &:focus,
+  & {
+    @extend %radio;
+  }
+}
+
+/************
+ * GtkScale *
+ ************/
+%scale_trough {
+  @include backgroundDent();
+  @include border();
+
+  &:disabled {
+  }
+  &:backdrop {
+    @include backdropBackground();
+
+    &:disabled {
+    }
+  }
+  row:selected & {
+    &:disabled,
+    & {
+    }
+  }
+  .osd & {
+    &:disabled {
+    }
+  }
+}
+
+%scale_highlight {
+  @include border();
+  @include highlightBackground();
+
+  &:disabled {
+  }
+  &:backdrop {
+    &:disabled {
+    }
+  }
+  row:selected & {
+    &:disabled,
+    & {
+    }
+  }
+  .osd & {
+    &:disabled {
+    }
+  }
+}
+
+scale {
+  color: $colorAccentMax;
+  padding: $widthScaleSlider;
+
+  // These are inside the trough, we need to show
+  // their border over that of the trough.
+  fill,
+  highlight {
+    margin: -$spacerPx;
+  }
+  slider {
+    @include button();
+    margin: -$widthScaleSlider;
+    min-height: $widthScaleSlider;
+    min-width: $widthScaleSlider;
+  }
+  &.fine-tune {
+    &.horizontal {
+    }
+    &.vertical {
+    }
+    slider {
+    }
+    fill,
+    highlight,
+    trough {
+    }
+  }
+  // The backing bit.
+  trough {
+    @extend %scale_trough;
+  }
+  // The colored part of the backing bit.
+  highlight {
+    @extend %scale_highlight;
+  }
+  fill {
+    @extend %scale_trough;
+
+    &:backdrop,
+    & {
+    }
+    &:disabled {
+      &:backdrop,
+      & {
+      }
+    }
+    .osd & {
+      &:disabled {
+        &:backdrop,
+        & {
+        }
+      }
+    }
+  }
+  slider {
+    &:hover {
+    }
+    &:active {
+    }
+    &:disabled {
+    }
+    &:backdrop {
+      &:disabled {
+      }
+    }
+    row:selected & {
+      &:disabled,
+      & {
+      }
+    }
+    .osd & {
+      &:hover {
+      }
+      &:active {
+      }
+      &:disabled {
+      }
+      &:backdrop {
+        &:disabled {
+        }
+      }
+    }
+  }
+  marks,
+  value {
+    font-feature-settings: "tnum";
+  }
+  @each $scale_orient, $marks_class, $marks_pos,
+    $marks_margin in (horizontal, top, top, bottom),
+    (horizontal, bottom, bottom, top), (vertical, top, left, right),
+    (vertical, bottom, right, left)
+  {
+    &.#{$scale_orient} marks {
+      &.#{$marks_class} {
+      }
+    }
+    &.#{$scale_orient}.fine-tune marks {
+      &.#{$marks_class} {
+      }
+    }
+  }
+  &.horizontal {
+    indicator {
+      min-height: $widthMeter;
+      min-width: $spacerPx;
+    }
+    &.fine-tune indicator {
+    }
+  }
+  &.vertical {
+    indicator {
+      min-height: $spacerPx;
+      min-width: $widthMeter;
+    }
+    &.fine-tune indicator {
+    }
+  }
+  @each $dir_class in "horizontal", "vertical" {
+    @each $marks_class in "marks-before:not(.marks-after)",
+      "marks-after:not(.marks-before)"
+    {
+      @each $state in "", ":hover", ":active", ":disabled", ":backdrop",
+        ":backdrop:disabled"
+      {
+        &.#{$dir_class}.#{$marks_class} {
+          slider {
+            &#{$state} {
+            }
+          }
+          &.fine-tune slider {
+          }
+        }
+      }
+    }
+  }
+  &.color {
+    trough {
+    }
+    &.horizontal {
+      trough {
+      }
+      slider {
+        // Specificity bump.
+        &:dir(ltr),
+        &:dir(rtl) {
+          &:hover,
+          &:backdrop,
+          &:disabled,
+          &:backdrop:disabled,
+          & {
+          }
+        }
+      }
+    }
+    &.vertical {
+      &:dir(ltr) {
+        trough {
+        }
+        slider {
+          &:hover,
+          &:backdrop,
+          &:disabled,
+          &:backdrop:disabled,
+          & {
+          }
+        }
+      }
+      &:dir(rtl) {
+        trough {
+        }
+        slider {
+          &:hover,
+          &:backdrop,
+          &:disabled,
+          &:backdrop:disabled,
+          & {
+          }
+        }
+      }
+    }
+    &.fine-tune {
+      &.horizontal {
+        // Specificity bump.
+        &:dir(ltr),
+        &:dir(rtl) {
+          trough {
+          }
+          slider {
+          }
+        }
+      }
+      &.vertical {
+        &:dir(ltr) {
+          trough {
+          }
+          slider {
+          }
+        }
+        &:dir(rtl) {
+          trough {
+          }
+          slider {
+          }
+        }
+      }
+    }
+  }
+  marks > mark > indicator {
+    color: $colorAccentHigh;
+  }
+}
+
+/****************
+ * Progressbars *
+ ****************/
+progressbar {
+  @include borderDent();
+  font-feature-settings: "tnum";
+
+  &.horizontal {
+    trough,
+    progress {
+      min-height: $widthMeter;
+    }
+  }
+  &.vertical {
+    trough,
+    progress {
+      min-width: $widthMeter;
+    }
+  }
+  &.horizontal progress {
+  }
+  &.vertical progress {
+  }
+  &:backdrop {
+  }
+  trough {
+    @extend %scale_trough;
+    border: unset;
+  }
+  progress {
+    @extend %scale_highlight;
+    border: unset;
+
+    &.left {
+    }
+    &.right {
+    }
+    &.top {
+    }
+    &.bottom {
+    }
+  }
+  &.osd {
+    trough {
+    }
+    progress {
+    }
+  }
+  trough.empty progress {
+  }
+  text {
+    color: $colorAccentMax;
+  }
+}
+
+/*************
+ * Levelbars *
+ *************/
+levelbar {
+  color: $colorAccentMax;
+
+  &.horizontal {
+    block {
+    }
+    &.discrete block {
+      margin-left: $spacerPx;
+      margin-right: $spacerPx;
+    }
+  }
+  &.vertical {
+    block {
+    }
+    &.discrete block {
+      margin-top: $spacerPx;
+      margin-bottom: $spacerPx;
+    }
+  }
+  &:backdrop {
+  }
+  trough {
+    @include backgroundDent();
+    @include border();
+    padding: $spacer;
+
+    &:backdrop {
+      @include backdropBackground();
+    }
+  }
+  block {
+    @include border();
+    min-height: $widthMeter;
+    min-width: $widthMeter;
+
+    &.low {
+      &:backdrop {
+      }
+    }
+    &.high,
+    &:not(.empty) {
+      @include highlightBackground();
+
+      &:backdrop {
+      }
+    }
+    &.full {
+      &:backdrop {
+      }
+    }
+    &.empty {
+      &:backdrop {
+      }
+    }
+  }
+}
+
+/****************
+ * Print Dialog *
+*****************/
+printdialog {
+  paper {
+    &:backdrop {
+    }
+  }
+  .dialog-action-box {
+  }
+}
+
+/**********
+ * Frames *
+ **********/
+frame > border,
+.frame {
+  @include border();
+
+  &.flat {
+    border: unset;
+  }
+  &:backdrop {
+  }
+}
+
+actionbar > revealer > box {
+  @include borderColor();
+  @include borderWidth();
+  border-top-style: solid;
+  padding: $spacer;
+
+  &:backdrop {
+  }
+}
+
+scrolledwindow {
+  viewport.frame {
+    // Avoid duplicate borders in viewport on scrolled windows.
+    border: unset;
+  }
+  overshoot {
+    &.top {
+      &:backdrop {
+      }
+    }
+    &.bottom {
+      &:backdrop {
+      }
+    }
+    &.left {
+      &:backdrop {
+      }
+    }
+    &.right {
+      &:backdrop {
+      }
+    }
+  }
+  // The small square between two scrollbars.
+  junction {
+    &:dir(rtl) {
+    }
+    &:backdrop {
+    }
+  }
+}
+
+/*********
+ * Lists *
+ *********/
+list {
+  &:backdrop {
+  }
+  row {
+    padding: $spacer;
+  }
+}
+
+row {
+  &:hover {
+  }
+  &:backdrop {
+  }
+  &.activatable {
+    &.has-open-popup,
+    &:hover {
+    }
+    &:active {
+      @include buttonActiveBackground();
+    }
+    &:backdrop:hover {
+    }
+    &:selected {
+      &:active {
+        @include buttonActiveBackground();
+      }
+      &.has-open-popup,
+      &:hover {
+      }
+      &:backdrop {
+      }
+    }
+    &:not(:selected):not(:active):hover {
+      @include hoverBackground();
+    }
+    &.has-open-popup {
+      // Indicate which row generated a popover, see
+      // https://bugzilla.gnome.org/show_bug.cgi?id=754411
+      @include buttonActiveBackground();
+    }
+  }
+  &:selected {
+    @extend %selected_items;
+  }
+}
+
+/*********************
+ * App Notifications *
+ *********************/
+.app-notification,
+.app-notification.frame {
+  @extend %osd;
+  background-clip: padding-box;
+
+  &:backdrop {
+  }
+  button {
+    @extend %osd_button;
+  }
+  border {
+  }
+}
+
+/*************
+ * Expanders *
+ *************/
+expander {
+  title > arrow {
+    min-height: $widthIcon;
+    min-width: $widthIcon;
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+
+    &:dir(rtl) {
+      -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
+    }
+    &:hover {
+    }
+    &:disabled {
+    }
+    &:disabled:backdrop {
+    }
+    &:checked {
+      -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+    }
+  }
+}
+
+/************
+ * Calendar *
+ ************/
+calendar {
+  @include border();
+
+  &:selected {
+    @extend %selected_items;
+  }
+  &.header {
+    &:backdrop {
+    }
+  }
+  &.button {
+    @extend %undecorated_button;
+    @include button();
+
+    &:hover {
+    }
+    &:backdrop {
+    }
+    &:disabled {
+    }
+  }
+  &.highlight {
+    @include backgroundBump();
+
+    &:backdrop {
+    }
+  }
+  &:backdrop {
+  }
+  &:indeterminate {
+    color: $colorAccentLow;
+  }
+}
+
+/***********
+ * Dialogs *
+ ***********/
+messagedialog {
+  .titlebar {
+  }
+  &.csd {
+    &.background {
+    }
+    .dialog-action-area button {
+      &:first-child {
+      }
+      &:last-child {
+      }
+    }
+  }
+}
+
+filechooser {
+  .dialog-action-box {
+    &:backdrop {
+    }
+  }
+  #pathbarbox {
+  }
+}
+
+filechooserbutton:drop(active) {
+}
+
+/************
+ * Sidebars *
+ ************/
+.sidebar {
+  @include backgroundDent();
+
+  &:not(separator) {
+    @at-root %sidebar_left,
+      &:dir(ltr),
+      &.left,
+      &.left:dir(rtl) {
+      @include borderColor();
+      @include borderWidth();
+      border-right-style: solid;
+    }
+    @at-root %sidebar_right,
+      &:dir(rtl),
+      &.right {
+      @include borderColor();
+      @include borderWidth();
+      border-left-style: solid;
+    }
+  }
+  &:backdrop {
+    @include backdropBackground();
+  }
+  list {
+  }
+  paned & {
+    &.left,
+    &.right,
+    &.left:dir(rtl),
+    &:dir(rtl),
+    &:dir(ltr),
+    & {
+      border: unset;
+    }
+  }
+}
+
+stacksidebar {
+  &.sidebar {
+    &:dir(ltr),
+    &.left,
+    &.left:dir(rtl) {
+      list {
+        @extend %sidebar_left;
+      }
+    }
+    &:dir(rtl),
+    &.right {
+      list {
+        @extend %sidebar_right;
+      }
+    }
+  }
+  row {
+    > label {
+    }
+    &.needs-attention > label {
+      @extend %needs_attention;
+    }
+  }
+}
+
+separator.sidebar {
+  &:backdrop {
+  }
+  &.selection-mode,
+  .selection-mode & {
+  }
+}
+
+/****************
+ * File Chooser *
+ ****************/
+row image.sidebar-icon {
+}
+
+placessidebar {
+  > viewport.frame {
+  }
+  row {
+    > revealer {
+    }
+    &:selected {
+    }
+    &:disabled {
+    }
+    &:backdrop {
+      &:selected {
+      }
+      &:disabled {
+      }
+    }
+    image.sidebar-icon {
+      &:dir(ltr) {
+        margin-right: $spacer;
+      }
+      &:dir(rtl) {
+        margin-left: $spacer;
+      }
+    }
+    label.sidebar-label {
+      &:dir(ltr) {
+      }
+      &:dir(rtl) {
+      }
+    }
+    @at-root button.sidebar-button {
+      @extend %button_basic_flat;
+      @extend %button_selected_flat;
+
+      &:not(:hover):not(:active),
+      &:backdrop {
+        > image {
+        }
+      }
+    }
+    &:selected:active {
+    }
+    &.sidebar-placeholder-row {
+      background-clip: content-box;
+    }
+    &.sidebar-new-bookmark-row {
+    }
+    &:drop(active):not(:disabled) {
+      &:selected {
+      }
+    }
+  }
+}
+
+placesview {
+  .server-list-button > image {
+    -gtk-icon-transform: rotate(0turn);
+  }
+  .server-list-button:checked > image {
+    -gtk-icon-transform: rotate(-0.5turn);
+  }
+  row.activatable:hover {
+  }
+  // "Connect to Server".
+  > actionbar > revealer > box > label {
+  }
+}
+
+/*********
+ * Paned *
+ *********/
+paned {
+  > separator {
+    // Disables the default handle decoration.
+    -gtk-icon-source: none;
+
+    &:selected {
+    }
+    &:backdrop {
+    }
+    &.wide {
+      &:backdrop {
+      }
+    }
+  }
+  // Resize areas.
+  // Bidirectional spacings may cause separators
+  // to be overdrawn, like in Thunar's statusbar.
+  &.horizontal > separator {
+    &:dir(ltr) {
+      margin-left: -$widthResizeArea;
+      padding-left: $widthResizeArea;
+    }
+    &:dir(rtl) {
+      padding-right: $widthResizeArea;
+      margin-right: -$widthResizeArea;
+    }
+    &.wide {
+    }
+  }
+  &.vertical > separator {
+    margin-bottom: -$widthResizeArea;
+    padding-bottom: $widthResizeArea;
+
+    &.wide {
+      margin: unset;
+    }
+  }
+}
+
+/**************
+ * GtkInfoBar *
+ **************/
+infobar {
+  &.action:hover > revealer > box {
+  }
+  &.info,
+  &.question,
+  &.warning,
+  &.error {
+    &:backdrop > revealer > box,
+    & > revealer > box {
+      label,
+      & {
+      }
+    }
+    &:backdrop {
+    }
+    button {
+      &:hover {
+      }
+      &:active,
+      &:checked {
+      }
+      &:disabled {
+      }
+      &:backdrop {
+        &:disabled {
+        }
+      }
+      &:backdrop,
+      & {
+        label,
+        & {
+        }
+      }
+    }
+    selection {
+      @include highlightBackground();
+    }
+    *:link {
+    }
+  }
+  & > revealer > box {
+    @include backgroundBump();
+    @include border();
+  }
+  &.error,
+  &.warning {
+    & > revealer > box {
+      @include badBackground();
+    }
+  }
+}
+
+/************
+ * Tooltips *
+ ************/
+tooltip {
+  &.background {
+    @include border();
+    // `background-color` needs to be set this way otherwise it gets drawn
+    // twice, see https://bugzilla.gnome.org/show_bug.cgi?id=736155
+    background-clip: padding-box;
+    background-color: $colorTooltipBackground;
+  }
+  decoration {
+    background-color: transparent;
+  }
+  * {
+    background-color: transparent;
+  }
+}
+
+/*****************
+ * Color Chooser *
+ *****************/
+colorswatch {
+  // This widget is made with two boxes, one on top of the other. The
+  // lower box is `colorswatch`, the other is `colorswatch overlay`.
+  // `colorswatch` has the programmatically set background,
+  // so most of the style is applied to the overlay box.
+  &:drop(active),
+  & {
+  }
+  &.top {
+    overlay {
+    }
+  }
+  &.bottom {
+    overlay {
+    }
+  }
+  &.left,
+  &:first-child:not(.top) {
+    overlay {
+    }
+  }
+  &.right,
+  &:last-child:not(.bottom) {
+    overlay {
+    }
+  }
+  &.dark {
+    overlay {
+      &:hover {
+      }
+      &:backdrop {
+      }
+    }
+  }
+  &.light {
+    overlay {
+      &:hover {
+      }
+      &:backdrop {
+      }
+    }
+  }
+  &:drop(active) {
+    &.light overlay {
+    }
+    &.dark overlay {
+    }
+  }
+  overlay {
+    @include border();
+
+    &:hover {
+      @include borderBump();
+    }
+    &:backdrop,
+    &:backdrop:hover {
+    }
+  }
+  &#add-color-button {
+    &:only-child {
+    }
+    overlay {
+      @include button();
+
+      &:hover {
+      }
+      &:backdrop {
+      }
+    }
+  }
+  &:disabled {
+    overlay {
+    }
+  }
+  row:selected & {
+  }
+  &#editor-color-sample {
+    overlay {
+    }
+  }
+}
+
+colorchooser .popover.osd {
+}
+
+colorchooser > box > box,
+colorchooser > box > grid {
+  @include borderDent();
+  background-color: $colorAccentMid;
+  padding: $spacer;
+}
+
+/*****************
+ * Miscellaneous *
+ *****************/
+.content-view {
+  background-color: magenta;
+
+  &:hover {
+  }
+  &:backdrop {
+  }
+  rubberband,
+  .rubberband {
+    @extend rubberband;
+  }
+}
+
+.scale-popup {
+  .osd & {
+    @extend %osd;
+  }
+  .osd & button.flat {
+  }
+  button {
+    // `+|-` buttons on GtkVolumeButton popups.
+    &:hover {
+      @extend %undecorated_button;
+    }
+    &:backdrop {
+      &:hover,
+      &:disabled,
+      & {
+        @extend %undecorated_button;
+      }
+    }
+  }
+}
+
+/**********************
+ * Window Decorations *
+ **********************/
+decoration {
+  // Ignored by GNOME 4x applications.
+  //@include borderBump();
+  // Workaround: Borders with `box-shadow`.
+  @if $variant == "light" {
+    box-shadow: 0 0 0 $spacerPx2 $colorAccentHigh,
+      (-$spacerPx) (-$spacerPx) 0 $spacerPx $colorAccentLow;
+  } @else {
+    box-shadow: 0 0 0 $spacerPx2 $colorAccentLow,
+      (-$spacerPx) (-$spacerPx) 0 $spacerPx $colorAccentHigh;
+  }
+  // Resize area.
+  margin: $widthResizeArea;
+
+  &:backdrop {
+    //@include borderColor();
+    box-shadow: 0 0 0 $spacerPx2 $colorAccentLow;
+  }
+  .maximized &,
+  .fullscreen & {
+  }
+  .tiled &,
+  .tiled-top &,
+  .tiled-right &,
+  .tiled-bottom &,
+  .tiled-left & {
+    &:backdrop {
+    }
+  }
+  .popup & {
+  }
+  .ssd & {
+  }
+  .ssd &:backdrop {
+  }
+  .csd.popup & {
+    @include borderBump();
+    box-shadow: unset;
+  }
+  tooltip.csd & {
+    //border: unset;
+    box-shadow: unset;
+  }
+  messagedialog.csd & {
+    @include borderBump();
+    box-shadow: unset;
+  }
+  .solid-csd & {
+    &:backdrop {
+    }
+  }
+}
+
+// Window close button.
+button.titlebutton {
+  @extend %button_basic;
+  @extend %button_basic_flat;
+  &:not(.appmenu) {
+  }
+  .selection-mode & {
+    @extend %selection_mode_button_flat;
+    @extend %nobg_selected_items;
+  }
+  &:backdrop {
+  }
+}
+
+.selection-mode headerbar button.titlebutton,
+.selection-mode .titlebar button.titlebutton,
+headerbar.selection-mode button.titlebutton,
+.titlebar.selection-mode button.titlebutton {
+  &:backdrop {
+  }
+}
+
+%selected_items {
+  @include selectedBackground();
+
+  @at-root %nobg_selected_items,
+    & {
+    @at-root %selected_items_disabled,
+      &:disabled {
+    }
+    @at-root %selected_items_backdrop,
+      &:backdrop {
+      &:disabled {
+      }
+    }
+  }
+}
+
+.monospace {
+  font-family: monospace;
+}
+
+/**********************
+ * Touch Copy & Paste *
+ *********************/
+//touch selection handlebars for the Popover.osd above
+cursor-handle {
+  @each $s in "", ":hover", ":active" {
+    &.top#{$s}:dir(ltr),
+    &.bottom#{$s}:dir(rtl) {
+    }
+    &.bottom#{$s}:dir(ltr),
+    &.top#{$s}:dir(rtl) {
+    }
+    &.insertion-cursor#{$s}:dir(ltr),
+    &.insertion-cursor#{$s}:dir(rtl) {
+    }
+  }
+}
+
+.context-menu {
+  // Decouple the font of context menus from their entry or textview.
+  font: initial;
+}
+
+// Shortcut window keys.
+.keycap {
+  &:backdrop {
+  }
+}
+
+:not(decoration):not(window):drop(active):focus,
+:not(decoration):not(window):drop(active) {
+}
+
+stackswitcher button.text-button {
+}
+
+stackswitcher button.circular,
+stackswitcher button.text-button.circular {
+}
+
+/*************
+ * App Icons *
+ *************/
+.lowres-icon {
+}
+
+.icon-dropshadow {
+}
+
+/*********
+ * Emoji *
+ ********/
+popover.emoji-picker {
+  entry.search {
+  }
+}
+
+button.emoji-section {
+  &:first-child {
+  }
+  &:last-child {
+  }
+  &:backdrop:not(:checked) {
+  }
+  &:hover {
+  }
+  &:checked {
+  }
+  label {
+  }
+  &:hover label {
+  }
+  &:checked label {
+  }
+}
+
+popover.emoji-picker .emoji {
+  @include button();
+  // `:hover` background is not drawn on paddings.
+  padding: unset;
+
+  :hover {
+    // Workaround: Needs to be explicitly defined.
+    @include buttonHoverBackground();
+  }
+}
+
+popover.emoji-completion arrow {
+}
+
+popover.emoji-completion contents row box {
+}
+
+popover.emoji-completion .emoji:hover {
+}

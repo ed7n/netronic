@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Netronic-dark
+Type=X-GNOME-Metatheme
+
+[X-GNOME-Metatheme]
+GtkTheme=Netronic-dark
+Comment=NET Desktop Design.

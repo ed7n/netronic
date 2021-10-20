@@ -1,0 +1,389 @@
+@use "sass:math";
+
+@function netRgba($rgb, $a) {
+  @return transparentize($rgb, math.div(255 - $a, 255));
+}
+
+$color: #efefef;
+$colorAccentHigh: #afafaf;
+$colorAccentHighBump: #b7b7b7;
+$colorAccentHighDent: #a7a7a7;
+$colorAccentLow: #4f4f4f;
+$colorAccentLowBump: #575757;
+$colorAccentLowDent: #474747;
+$colorAccentMax: #dfdfdf;
+$colorAccentMaxBump: #e7e7e7;
+$colorAccentMaxDent: #d7d7d7;
+$colorAccentMid: #7f7f7f;
+$colorAccentMidBump: #878787;
+$colorAccentMidDent: #777777;
+$colorAccentMin: #1f1f1f;
+$colorAccentMinBump: #272727;
+$colorAccentMinDent: #171717;
+$colorAccentOver: #fff;
+$colorAccentUnder: #000;
+$colorAnchor: #7f7fef;
+$colorAnchorFocus: #bfefbf;
+$colorAnchorFocusBackground: netRgba(#0fef0f, 127);
+$colorAnchorFocusBackgroundSolid: #178717;
+$colorAnchorHover: #bfbfef;
+$colorAnchorHoverBackground: netRgba(#0f0fef, 127);
+$colorAnchorHoverBackgroundSolid: #171787;
+$colorBackground: #0f0f0f;
+$colorBad: #ef7f7f;
+$colorBadBackground: netRgba(#ef0f0f, 127);
+$colorBadBackgroundSolid: #871717;
+$colorButtonActiveBackground: netRgba(#0fef0f, 63);
+$colorButtonActiveBackgroundSolid: #1a521a;
+$colorButtonBadActiveBackground: #ef0f0f;
+$colorButtonBadHoverBackground: netRgba(#7f0f0f, 127);
+$colorButtonBadHoverBackgroundSolid: #4f1717;
+$colorButtonHoverBackground: netRgba(#0f0fef, 63);
+$colorButtonHoverBackgroundSolid: #1a1a52;
+$colorFocusOutline: #efbf0f;
+$colorHighlightBackground: netRgba(#ef7f0f, 127);
+$colorHighlightBackgroundSolid: #874f17;
+$colorHoverBackground: netRgba(#7f7f7f, 36);
+$colorHoverBackgroundSolid: #1f1f1f;
+$colorInputActiveBorder: #0fefbf;
+$colorInputBackground: $colorAccentUnder;
+$colorInputFocusBorder: #0fbfef;
+$colorInputHoverBorder: #0f0fef;
+$colorInputInvalidBorder: #ef0fbf;
+$colorNetMenuActiveBackground: $colorButtonActiveBackground;
+$colorNetMenuFocusBackground: $colorButtonActiveBackground;
+$colorNetMenuHoverBackground: $colorButtonHoverBackground;
+$colorSelectedBackground: netRgba(#0fefbf, 79);
+$colorSelectedBackgroundSolid: #1a5f51;
+$colorTechnical: #efbf7f;
+$colorTooltipBackground: #3f3f0f;
+
+@if $variant == "light" {
+  $color: #0f0f0f;
+  $colorAccentHigh: #4f4f4f;
+  $colorAccentHighBump: #474747;
+  $colorAccentHighDent: #575757;
+  $colorAccentLow: #afafaf;
+  $colorAccentLowBump: #a7a7a7;
+  $colorAccentLowDent: #b7b7b7;
+  $colorAccentMax: #1f1f1f;
+  $colorAccentMaxBump: #171717;
+  $colorAccentMaxDent: #272727;
+  $colorAccentMid: #7f7f7f;
+  $colorAccentMidBump: #777777;
+  $colorAccentMidDent: #878787;
+  $colorAccentMin: #dfdfdf;
+  $colorAccentMinBump: #d7d7d7;
+  $colorAccentMinDent: #e7e7e7;
+  $colorAccentOver: #000;
+  $colorAccentUnder: #fff;
+  $colorAnchor: #0f0fef;
+  $colorAnchorFocus: #0f7f0f;
+  $colorAnchorFocusBackgroundSolid: #77e777;
+  $colorAnchorHover: #0f0f7f;
+  $colorAnchorHoverBackgroundSolid: #7777e7;
+  $colorBackground: #efefef;
+  $colorBad: #ef0f0f;
+  $colorBadBackgroundSolid: #e77777;
+  $colorButtonActiveBackgroundSolid: #abe3ab;
+  $colorButtonBadHoverBackgroundSolid: #af7777;
+  $colorButtonHoverBackgroundSolid: #ababe3;
+  $colorHighlightBackgroundSolid: #efb77f;
+  $colorHoverBackgroundSolid: #dfdfdf;
+  $colorSelectedBackgroundSolid: #9fe4d5;
+  $colorTechnical: #7f3f0f;
+  $colorTooltipBackground: #efefbf;
+}
+
+$fontSizeFactorBump: 1.0833;
+$fontSizeFactorDent: 0.9167;
+$fontSizeFactorH0: 2;
+$fontSizeFactorH1: 1.6667;
+$fontSizeFactorH2: 1.3333;
+$fontSizeFactorH3: 1.125;
+$fontSizeFactorH4: 1;
+$fontSizeFactorH5: 0.875;
+$fontSizeFactorH6: 0.775;
+$fontSizeFactorNetMenu: $fontSizeFactorH5;
+$fontSizeFactorSmaller: $fontSizeFactorH5;
+$fontSize: 1em;
+$fontSizeBump: $fontSize * $fontSizeFactorBump;
+$fontSizeDent: $fontSize * $fontSizeFactorDent;
+$fontSizeH0: $fontSize * $fontSizeFactorH0;
+$fontSizeH1: $fontSize * $fontSizeFactorH1;
+$fontSizeH2: $fontSize * $fontSizeFactorH2;
+$fontSizeH3: $fontSize * $fontSizeFactorH3;
+$fontSizeH4: $fontSize * $fontSizeFactorH4;
+$fontSizeH5: $fontSize * $fontSizeFactorH5;
+$fontSizeH6: $fontSize * $fontSizeFactorH6;
+$fontSizeNetMenu: $fontSize * $fontSizeFactorNetMenu;
+$fontSizeSmaller: $fontSize * $fontSizeFactorSmaller;
+$spacer: 0.25em;
+$spacer2: $spacer * 2;
+$spacer3: $spacer * 3;
+$spacer4: $spacer * 4;
+$spacer5: $spacer * 5;
+$spacer6: $spacer * 6;
+$spacer7: $spacer * 7;
+$spacer8: $spacer * 8;
+$spacer10: $spacer * 10;
+$spacer12: $spacer * 12;
+$spacer16: $spacer * 16;
+$spacerPx: 1px;
+$spacerPx2: $spacerPx * 2;
+$spacerPx4: $spacerPx * 4;
+$lineHeight: $spacer6;
+$lineHeight05: $lineHeight * 0.5;
+$lineHeight067: $lineHeight * 0.6667;
+$lineHeight075: $lineHeight * 0.75;
+
+$durationSpinnerAnimation: 0.3333s;
+$opacityScrollbar: 0.6667;
+$opacityScrollbarOverlay: 0.3333;
+$scaleCheck: 0.75;
+$widthBorderBumpEnd: $spacerPx2;
+$widthBorderBumpStart: $widthBorderBumpEnd;
+$widthBorderDentEnd: $spacerPx;
+$widthBorderDentStart: $spacerPx2;
+$widthIcon: $lineHeight067;
+$widthMeter: $spacer2;
+$widthResizeArea: $spacerPx2;
+$widthScaleSlider: $spacer2;
+$widthScrollbar: $spacer4;
+$widthScrollbarOverlay: $spacer;
+
+@mixin anchorFocusBackground() {
+  background-color: $colorAnchorFocusBackgroundSolid;
+}
+
+@mixin anchorHoverBackground() {
+  background-color: $colorAnchorHoverBackgroundSolid;
+}
+
+@mixin background() {
+  background-color: $colorBackground;
+}
+
+@mixin backgroundBump() {
+  background-color: $colorAccentMin;
+}
+
+@mixin backgroundDent() {
+  background-color: $colorAccentUnder;
+}
+
+@mixin backdropBackground() {
+  @include backgroundBump();
+}
+
+@mixin badBackground() {
+  background-color: $colorBadBackgroundSolid;
+}
+
+@mixin border() {
+  @include borderColor();
+  @include borderStyle();
+  @include borderWidth();
+}
+
+@mixin borderBump() {
+  @include borderColorBump();
+  @include borderStyle();
+  @include borderWidthBump();
+}
+
+@mixin borderDent() {
+  @include borderColorDent();
+  @include borderStyle();
+  @include borderWidthDent();
+}
+
+@mixin borderColor() {
+  border-color: $colorAccentLow;
+}
+
+@mixin borderColorBump() {
+  @if $variant == "light" {
+    border-top-color: $colorAccentLow;
+    border-left-color: $colorAccentLow;
+    border-right-color: $colorAccentHigh;
+    border-bottom-color: $colorAccentHigh;
+  } @else {
+    border-top-color: $colorAccentHigh;
+    border-left-color: $colorAccentHigh;
+    border-right-color: $colorAccentLow;
+    border-bottom-color: $colorAccentLow;
+  }
+}
+
+@mixin borderColorBumpDent() {
+  @if $variant == "light" {
+    border-top-color: $colorAccentLowBump;
+    border-left-color: $colorAccentLowBump;
+    border-right-color: $colorAccentHighDent;
+    border-bottom-color: $colorAccentHighDent;
+  } @else {
+    border-top-color: $colorAccentHighDent;
+    border-left-color: $colorAccentHighDent;
+    border-right-color: $colorAccentLowBump;
+    border-bottom-color: $colorAccentLowBump;
+  }
+}
+
+@mixin borderColorDent() {
+  @if $variant == "light" {
+    border-top-color: $colorAccentHigh;
+    border-left-color: $colorAccentHigh;
+    border-right-color: $colorAccentLow;
+    border-bottom-color: $colorAccentLow;
+  } @else {
+    border-top-color: $colorAccentLow;
+    border-left-color: $colorAccentLow;
+    border-right-color: $colorAccentHigh;
+    border-bottom-color: $colorAccentHigh;
+  }
+}
+
+@mixin borderStyle() {
+  border-style: solid;
+}
+
+@mixin borderWidth() {
+  border-width: $spacerPx;
+}
+
+@mixin borderWidthBump() {
+  border-top-width: $widthBorderBumpStart;
+  border-left-width: $widthBorderBumpStart;
+  border-right-width: $widthBorderBumpEnd;
+  border-bottom-width: $widthBorderBumpEnd;
+}
+
+@mixin borderWidthDent() {
+  border-top-width: $widthBorderDentStart;
+  border-left-width: $widthBorderDentStart;
+  border-right-width: $widthBorderDentEnd;
+  border-bottom-width: $widthBorderDentEnd;
+}
+
+@mixin button() {
+  @include buttonBackground();
+  @include borderBump();
+  padding: $spacer;
+
+  &:hover {
+    @include buttonHoverBackground();
+  }
+  &:active,
+  &:checked {
+    @include buttonActiveBackground();
+    @include borderColorDent();
+  }
+  &:disabled {
+    @include borderColor();
+  }
+  &:backdrop:not(:hover):not(:active):not(:checked) {
+    @include backdropBackground();
+    @include borderColorBumpDent();
+  }
+  &:drop(active) {
+    @include inputHoverBorder();
+  }
+  &.destructive-action {
+    @include buttonBadBackground();
+
+    &:hover {
+      @include buttonBadHoverBackground();
+    }
+    &:active,
+    &:checked {
+      @include buttonBadActiveBackground();
+    }
+  }
+}
+
+@mixin buttonActiveBackground() {
+  background-color: $colorButtonActiveBackgroundSolid;
+}
+
+@mixin buttonBadBackground() {
+  background-color: $colorBadBackgroundSolid;
+}
+
+@mixin buttonBadActiveBackground() {
+  background-color: $colorButtonBadActiveBackground;
+}
+
+@mixin buttonBadHoverBackground() {
+  background-color: $colorButtonBadHoverBackgroundSolid;
+}
+
+@mixin buttonBackground() {
+  @include backgroundBump();
+}
+
+@mixin buttonHoverBackground() {
+  background-color: $colorButtonHoverBackgroundSolid;
+}
+
+@mixin highlightBackground() {
+  background-color: $colorHighlightBackgroundSolid;
+}
+
+@mixin hoverBackground() {
+  background-color: $colorHoverBackgroundSolid;
+}
+
+@mixin input() {
+  @include backgroundDent();
+  @include borderDent();
+  color: $colorAccentMax;
+  min-height: $lineHeight;
+  padding: $spacer;
+
+  &:hover {
+    @include inputHoverBorder();
+  }
+  &:focus {
+    @include inputFocusBorder();
+  }
+  &:disabled {
+    @include borderColor();
+  }
+  &:backdrop {
+    @include backdropBackground();
+  }
+  &:drop(active) {
+    &:focus,
+    & {
+      @include inputHoverBorder();
+    }
+  }
+  .error {
+    @include inputInvalidBorder();
+  }
+}
+
+@mixin inputActiveBorder() {
+  border-top-color: $colorInputActiveBorder;
+  border-left-color: $colorInputActiveBorder;
+}
+
+@mixin inputFocusBorder() {
+  border-top-color: $colorInputFocusBorder;
+  border-left-color: $colorInputFocusBorder;
+}
+
+@mixin inputHoverBorder() {
+  border-top-color: $colorInputHoverBorder;
+  border-left-color: $colorInputHoverBorder;
+}
+
+@mixin inputInvalidBorder() {
+  border-top-color: $colorInputInvalidBorder;
+  border-left-color: $colorInputInvalidBorder;
+}
+
+@mixin selectedBackground() {
+  background-color: $colorSelectedBackgroundSolid;
+}

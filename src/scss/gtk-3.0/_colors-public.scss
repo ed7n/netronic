@@ -1,0 +1,75 @@
+/*
+  GTK Named Colors
+
+  Applications rely on some named colors to be exported.
+
+  Sass thinks we are using colors in the variables as strings and may throw
+  warnings. It is innocuous and can be defeated by prepending `""`.
+*/
+
+// Widget text/foreground color.
+@define-color theme_fg_color #{"" + $color};
+
+// Text color for entries, views, and content in general.
+@define-color theme_text_color #{"" + $color};
+
+// Widget base background color.
+@define-color theme_bg_color #{"" + $colorAccentMin};
+
+// Text widgets and the like base background color.
+@define-color theme_base_color #{"" + $colorBackground};
+
+// Base background color for selections.
+@define-color theme_selected_bg_color #{"" + $colorSelectedBackgroundSolid};
+
+// Text/foreground color for selections.
+@define-color theme_selected_fg_color #{"" + $color};
+
+// Base background color for insensitive widgets.
+@define-color insensitive_bg_color #{"" + $colorAccentMin};
+
+// Text foreground color for insensitive widgets.
+@define-color insensitive_fg_color #{"" + $colorAccentMid};
+
+// Insensitive text widgets and the like base background color.
+@define-color insensitive_base_color #{"" + $colorBackground};
+
+// Widget text/foreground color on backdrop windows.
+@define-color theme_unfocused_fg_color #{"" + $colorAccentMax};
+
+// Text color for entries, views and content in general on backdrop windows.
+@define-color theme_unfocused_text_color #{"" + $colorAccentMax};
+
+// Widget base background color on backdrop windows.
+@define-color theme_unfocused_bg_color #{"" + $colorAccentMin};
+
+// Text widgets and the like base background color on backdrop windows.
+@define-color theme_unfocused_base_color #{"" + $colorAccentMin};
+
+// Base background color for selections on backdrop windows.
+@define-color theme_unfocused_selected_bg_color #{"" + $colorSelectedBackgroundSolid};
+
+// Text/foreground color for selections on backdrop windows.
+@define-color theme_unfocused_selected_fg_color #{"" + $colorAccentMax};
+
+// Insensitive color on backdrop windows.
+@define-color unfocused_insensitive_color #{"" + $colorAccentMid};
+
+// Widgets main borders color.
+@define-color borders #{"" + $colorAccentLow};
+
+// Widgets main borders color on backdrop windows.
+@define-color unfocused_borders #{"" + $colorAccentLow};
+
+// These are pretty self explicative.
+@define-color warning_color #{"" + $color};
+@define-color error_color #{"" + $colorBad};
+@define-color success_color #{"" + $color};
+@define-color placeholder_text_color #{"" + $colorAccentHigh};
+@define-color link_color #{"" + $colorAnchor};
+
+// Content view background such as thumbnails view in Photos or Boxes.
+@define-color content_view_bg #{"" + $colorBackground};
+
+// Very contrasty background for text views (@theme_text_color foreground).
+@define-color text_view_bg #{"" + $colorBackground};
