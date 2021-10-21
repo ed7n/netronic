@@ -1,0 +1,18 @@
+Netronic Setup Manual by Brendon, 10/20/2021.
+——https://ed7n.github.io/netronic
+
+——Installation
+Copy the `Netronic` directories to either:
+
+  yourself: `~/.local/share/themes`, or
+  everyone: `/usr/local/share/themes`.
+
+Netronic should then be available.
+
+The `wine` directory contains registry files for importing.
+
+
+——Firefox
+To use your preferred GTK3 theme in Firefox, set
+`widget.content.gtk-theme-override` to its name. You may need to restart Firefox
+for this to take effect.
