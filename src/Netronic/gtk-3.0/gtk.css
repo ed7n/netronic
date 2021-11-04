@@ -10,7 +10,7 @@
   -GtkTextView-grid-line-width: 1;
   -GtkTextView-horizontal-separator: 4;
   -GtkTextView-tree-line-width: 1;
-  -gtk-secondary-caret-color: #9fe4d5;
+  -gtk-secondary-caret-color: #9fd5d5;
 }
 
 :backdrop:not(:hover):not(:active):not(:checked):not(:selected) {
@@ -50,7 +50,7 @@ accelerator {
   background-color: #77e777;
 }
 .gtkstyle-fallback:selected {
-  background-color: #9fe4d5;
+  background-color: #9fd5d5;
 }
 
 .view, iconview,
@@ -75,7 +75,7 @@ rubberband,
 .content-view .rubberband,
 treeview.view rubberband,
 flowbox rubberband {
-  background-color: rgba(15, 239, 191, 0.3098039216);
+  background-color: rgba(15, 191, 191, 0.3098039216);
   border-color: #afafaf;
   border-style: solid;
   border-width: 1px;
@@ -91,7 +91,7 @@ label {
   min-height: 1.5em;
 }
 label selection {
-  background-color: #9fe4d5;
+  background-color: #9fd5d5;
 }
 button label:disabled {
   color: inherit;
@@ -1512,7 +1512,7 @@ iconview text:selected:focus,
 iconview text:selected, iconview text selection:focus, iconview text selection, flowbox flowboxchild:selected,
 entry selection, modelbutton.flat:selected,
 .menuitem.button.flat:selected, spinbutton:not(.vertical) selection, treeview.view:selected:focus, treeview.view:selected, row:selected, calendar:selected {
-  background-color: #9fe4d5;
+  background-color: #9fd5d5;
 }
 .monospace {
   font-family: monospace;
@@ -1594,7 +1594,7 @@ popover.emoji-picker .emoji :hover {
 @define-color theme_text_color #0f0f0f;
 @define-color theme_bg_color #dfdfdf;
 @define-color theme_base_color #efefef;
-@define-color theme_selected_bg_color #9fe4d5;
+@define-color theme_selected_bg_color #9fd5d5;
 @define-color theme_selected_fg_color #0f0f0f;
 @define-color insensitive_bg_color #dfdfdf;
 @define-color insensitive_fg_color #7f7f7f;
@@ -1603,7 +1603,7 @@ popover.emoji-picker .emoji :hover {
 @define-color theme_unfocused_text_color #1f1f1f;
 @define-color theme_unfocused_bg_color #dfdfdf;
 @define-color theme_unfocused_base_color #dfdfdf;
-@define-color theme_unfocused_selected_bg_color #9fe4d5;
+@define-color theme_unfocused_selected_bg_color #9fd5d5;
 @define-color theme_unfocused_selected_fg_color #1f1f1f;
 @define-color unfocused_insensitive_color #7f7f7f;
 @define-color borders #afafaf;
