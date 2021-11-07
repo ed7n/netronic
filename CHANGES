@@ -2,6 +2,9 @@ Netronic: Changes
 
 —Update 0
 
+——Revision 2, 11/06/2021.
+- Fixed button backdrop disabled colors.
+
 ——Revision 1, 11/04/2021.
 - Fixed Wine selection background color.
 - Tweaked selection background color.

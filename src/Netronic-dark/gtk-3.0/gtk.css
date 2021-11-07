@@ -13,7 +13,7 @@
   -gtk-secondary-caret-color: #1a5151;
 }
 
-:backdrop:not(:hover):not(:active):not(:checked):not(:selected) {
+:backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(:disabled) {
   color: #afafaf;
 }
 
@@ -294,8 +294,8 @@ notebook > header > tabs > arrow:disabled,
 button:disabled {
   border-color: #4f4f4f;
 }
-notebook > header > tabs > arrow:backdrop:not(:hover):not(:active):not(:checked),
-button:backdrop:not(:hover):not(:active):not(:checked) {
+notebook > header > tabs > arrow:backdrop:not(:hover):not(:active):not(:checked):not(:disabled),
+button:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -729,7 +729,7 @@ notebook > header tab:active, notebook > header tab:checked {
 notebook > header tab:disabled {
   border-color: #4f4f4f;
 }
-notebook > header tab:backdrop:not(:hover):not(:active):not(:checked) {
+notebook > header tab:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -793,7 +793,7 @@ scrollbar slider:active, scrollbar slider:checked {
 scrollbar slider:disabled {
   border-color: #4f4f4f;
 }
-scrollbar slider:backdrop:not(:hover):not(:active):not(:checked) {
+scrollbar slider:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -888,7 +888,7 @@ switch slider:active, switch slider:checked {
 switch slider:disabled {
   border-color: #4f4f4f;
 }
-switch slider:backdrop:not(:hover):not(:active):not(:checked) {
+switch slider:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -1047,7 +1047,7 @@ scale slider:active, scale slider:checked {
 scale slider:disabled {
   border-color: #4f4f4f;
 }
-scale slider:backdrop:not(:hover):not(:active):not(:checked) {
+scale slider:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -1250,7 +1250,7 @@ calendar.button:active, calendar.button:checked {
 calendar.button:disabled {
   border-color: #4f4f4f;
 }
-calendar.button:backdrop:not(:hover):not(:active):not(:checked) {
+calendar.button:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -1423,7 +1423,7 @@ colorswatch#add-color-button overlay:active, colorswatch#add-color-button overla
 colorswatch#add-color-button overlay:disabled {
   border-color: #4f4f4f;
 }
-colorswatch#add-color-button overlay:backdrop:not(:hover):not(:active):not(:checked) {
+colorswatch#add-color-button overlay:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
@@ -1558,7 +1558,7 @@ popover.emoji-picker .emoji:active, popover.emoji-picker .emoji:checked {
 popover.emoji-picker .emoji:disabled {
   border-color: #4f4f4f;
 }
-popover.emoji-picker .emoji:backdrop:not(:hover):not(:active):not(:checked) {
+popover.emoji-picker .emoji:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;

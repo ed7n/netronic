@@ -23,7 +23,7 @@
   -gtk-secondary-caret-color: $colorSelectedBackgroundSolid;
 }
 
-:backdrop:not(:hover):not(:active):not(:checked):not(:selected) {
+:backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(:disabled) {
   color: $colorAccentHigh;
 }
 

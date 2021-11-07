@@ -282,7 +282,7 @@ $widthScrollbarOverlay: $spacer;
   &:disabled {
     @include borderColor();
   }
-  &:backdrop:not(:hover):not(:active):not(:checked) {
+  &:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
     @include backdropBackground();
     @include borderColorBumpDent();
   }
