@@ -1872,6 +1872,13 @@ notebook {
   }
 }
 
+// epiphany
+tabbox {
+  tab {
+    @include button();
+  }
+}
+
 /**************
  * Scrollbars *
  **************/

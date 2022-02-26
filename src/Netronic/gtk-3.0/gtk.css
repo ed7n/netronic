@@ -755,6 +755,53 @@ notebook > header tab button.flat:last-child {
 notebook > header tab button.flat:first-child {
   margin-right: 0.25em;
 }
+tabbox tab {
+  background-color: #dfdfdf;
+  border-top-color: #afafaf;
+  border-left-color: #afafaf;
+  border-right-color: #4f4f4f;
+  border-bottom-color: #4f4f4f;
+  border-style: solid;
+  border-top-width: 2px;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  padding: 0.25em;
+}
+tabbox tab:hover {
+  background-color: #ababe3;
+}
+tabbox tab:active, tabbox tab:checked {
+  background-color: #abe3ab;
+  border-top-color: #4f4f4f;
+  border-left-color: #4f4f4f;
+  border-right-color: #afafaf;
+  border-bottom-color: #afafaf;
+}
+tabbox tab:disabled {
+  border-color: #afafaf;
+}
+tabbox tab:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
+  background-color: #dfdfdf;
+  border-top-color: #a7a7a7;
+  border-left-color: #a7a7a7;
+  border-right-color: #575757;
+  border-bottom-color: #575757;
+}
+tabbox tab:drop(active) {
+  border-top-color: #0f0fef;
+  border-left-color: #0f0fef;
+}
+tabbox tab.destructive-action {
+  background-color: #e77777;
+}
+tabbox tab.destructive-action:hover {
+  background-color: #af7777;
+}
+tabbox tab.destructive-action:active, tabbox tab.destructive-action:checked {
+  background-color: #ef0f0f;
+}
+
 /**************
  * Scrollbars *
  **************/
