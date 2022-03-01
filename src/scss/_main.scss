@@ -3181,7 +3181,7 @@ colorchooser > box > grid {
  * Miscellaneous *
  *****************/
 .content-view {
-  background-color: magenta;
+  @include background();
 
   &:hover {
   }

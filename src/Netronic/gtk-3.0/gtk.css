@@ -1509,7 +1509,7 @@ colorchooser > box > grid {
  * Miscellaneous *
  *****************/
 .content-view {
-  background-color: magenta;
+  background-color: #efefef;
 }
 /**********************
  * Window Decorations *
