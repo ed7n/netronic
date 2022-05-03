@@ -2,6 +2,11 @@ Netronic: Changes
 
 —Update 0
 
+——Revision 5, 05/03/2022.
+- Removed `.text-button` from `checkbutton` and `radiobutton` selectors.
+-- [https://gitlab.xfce.org/apps/mousepad/-/issues/169]
+- Updated setup manual for AppArmor, Firefox Proton, and Wine theming.
+
 ——Revision 4, 02/28/2022.
 - `.content-view` background.
 

@@ -958,20 +958,20 @@ switch slider.destructive-action:active, switch slider.destructive-action:checke
 /***********************
  * Check + Radio Items *
  ***********************/
-checkbutton.text-button,
-radiobutton.text-button {
+checkbutton,
+radiobutton {
   padding: 0.25em;
 }
-checkbutton.text-button label:not(:only-child):first-child,
-radiobutton.text-button label:not(:only-child):first-child {
+checkbutton label:not(:only-child):first-child,
+radiobutton label:not(:only-child):first-child {
   margin-left: 0.25em;
 }
-checkbutton.text-button label:not(:only-child):last-child,
-radiobutton.text-button label:not(:only-child):last-child {
+checkbutton label:not(:only-child):last-child,
+radiobutton label:not(:only-child):last-child {
   margin-right: 0.25em;
 }
-checkbutton.text-button:hover,
-radiobutton.text-button:hover {
+checkbutton:hover,
+radiobutton:hover {
   background-color: #1f1f1f;
 }
 
