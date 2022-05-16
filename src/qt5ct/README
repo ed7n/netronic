@@ -1,0 +1,30 @@
+Netronic qt5ct README by Brendon, 05/15/2022.
+——https://ed7n.github.io/netronic
+
+The `colors` directory contains palette files for use with the Qt5 Configuration
+Tool (qt5ct). This file describes each color to those interested in modifying
+them. Numbers correspond to those in the palette files. Descriptions are based
+on those in [https://github.com/Jamie-Michelle/Computing-Machine], with hours of
+trial and error on both Fusion and Windows styles.
+
+01. Window Foreground
+02. Controls Background
+03. Controls Highlight
+04. Controls Light
+05. Controls Dark Shadow
+06. Select Dropdown Icon (in- and active colors do not apply?)
+07. Contents Foreground
+08. <unknown>
+09. Button Foreground
+10. Contents Background
+11. Window Background
+12. Controls Shadow
+13. Selection Background
+14. Selection Foreground
+15. Link (disabled and inactive colors do not apply?)
+16. Visited Link (?)
+17. Controls Alternate Background
+18. <unknown>
+19. Tooltip Background
+20. Tooltip Foreground
+21. Entry Placeholder Foreground

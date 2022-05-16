@@ -1,0 +1,12 @@
+#XfceNotifyWindow {
+  background-color: #1f1f1f;
+  border: 1.5px solid #4f4f4f;
+}
+
+#XfceNotifyWindow label#body {
+  font-style: italic;
+}
+
+#XfceNotifyWindow label#summary {
+  font-weight: bold;
+}

@@ -1596,6 +1596,13 @@ menu,
         min-height: 0;
       }
     }
+    // Mousepad.
+    > box > menuitem {
+      padding-top: unset;
+      padding-left: $spacer2;
+      padding-right: $spacer2;
+      padding-bottom: unset;
+    }
   }
   // Overflow arrows.
   > arrow {
@@ -1872,11 +1879,18 @@ notebook {
   }
 }
 
-// epiphany
-tabbox {
-  tab {
-    @include button();
-  }
+// Epiphany.
+tabbox > tab {
+  @include button();
+}
+
+// Epiphany.
+viewswitcher > box > button {
+	padding: unset;
+
+	> stack > box {
+	  padding: $spacer;
+	}
 }
 
 /**************
@@ -2057,12 +2071,11 @@ switch {
   }
 }
 
-//checkbutton.text-button,
-//radiobutton.text-button {
-// https://gitlab.xfce.org/apps/mousepad/-/issues/169
-checkbutton,
-radiobutton {
-  padding: $spacer;
+// Adwaita: Inline padding moved back to `check, radio` as margin.
+checkbutton.text-button,
+radiobutton.text-button {
+  padding-top: $spacer;
+  padding-bottom: $spacer;
 
   label:not(:only-child) {
     &:first-child {
@@ -2072,6 +2085,11 @@ radiobutton {
       margin-right: $spacer;
     }
   }
+}
+
+// Mousepad: https://gitlab.xfce.org/apps/mousepad/-/issues/169
+checkbutton,
+radiobutton {
   &:hover {
     @include hoverBackground();
   }
@@ -2083,6 +2101,8 @@ radio {
   @include borderStyle();
   @include borderWidth();
   border-color: $colorAccentHigh;
+  margin-left: $spacer;
+  margin-right: $spacer;
   min-height: $widthIcon;
   min-width: $widthIcon;
   -gtk-icon-transform: scale($scaleCheck);
@@ -2133,6 +2153,9 @@ radio {
     }
   }
   menu menuitem & {
+    // Workaround: Align with image menuitems.
+    margin: unset;
+
     &,
     &:checked,
     &:indeterminate {

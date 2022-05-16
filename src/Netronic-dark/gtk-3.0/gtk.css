@@ -586,6 +586,14 @@ menu menuitem label:dir(rtl), menu menuitem label:dir(ltr),
   color: inherit;
   min-height: 0;
 }
+menu menuitem > box > menuitem,
+.menu menuitem > box > menuitem,
+.context-menu menuitem > box > menuitem {
+  padding-top: unset;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: unset;
+}
 menu > arrow,
 .menu > arrow,
 .context-menu > arrow {
@@ -755,7 +763,7 @@ notebook > header tab button.flat:last-child {
 notebook > header tab button.flat:first-child {
   margin-right: 0.25em;
 }
-tabbox tab {
+tabbox > tab {
   background-color: #1f1f1f;
   border-top-color: #afafaf;
   border-left-color: #afafaf;
@@ -768,38 +776,45 @@ tabbox tab {
   border-bottom-width: 2px;
   padding: 0.25em;
 }
-tabbox tab:hover {
+tabbox > tab:hover {
   background-color: #1a1a52;
 }
-tabbox tab:active, tabbox tab:checked {
+tabbox > tab:active, tabbox > tab:checked {
   background-color: #1a521a;
   border-top-color: #4f4f4f;
   border-left-color: #4f4f4f;
   border-right-color: #afafaf;
   border-bottom-color: #afafaf;
 }
-tabbox tab:disabled {
+tabbox > tab:disabled {
   border-color: #4f4f4f;
 }
-tabbox tab:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
+tabbox > tab:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
   background-color: #1f1f1f;
   border-top-color: #a7a7a7;
   border-left-color: #a7a7a7;
   border-right-color: #575757;
   border-bottom-color: #575757;
 }
-tabbox tab:drop(active) {
+tabbox > tab:drop(active) {
   border-top-color: #0f0fef;
   border-left-color: #0f0fef;
 }
-tabbox tab.destructive-action {
+tabbox > tab.destructive-action {
   background-color: #871717;
 }
-tabbox tab.destructive-action:hover {
+tabbox > tab.destructive-action:hover {
   background-color: #4f1717;
 }
-tabbox tab.destructive-action:active, tabbox tab.destructive-action:checked {
+tabbox > tab.destructive-action:active, tabbox > tab.destructive-action:checked {
   background-color: #ef0f0f;
+}
+
+viewswitcher > box > button {
+  padding: unset;
+}
+viewswitcher > box > button > stack > box {
+  padding: 0.25em;
 }
 
 /**************
@@ -958,18 +973,20 @@ switch slider.destructive-action:active, switch slider.destructive-action:checke
 /***********************
  * Check + Radio Items *
  ***********************/
-checkbutton,
-radiobutton {
-  padding: 0.25em;
+checkbutton.text-button,
+radiobutton.text-button {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
 }
-checkbutton label:not(:only-child):first-child,
-radiobutton label:not(:only-child):first-child {
+checkbutton.text-button label:not(:only-child):first-child,
+radiobutton.text-button label:not(:only-child):first-child {
   margin-left: 0.25em;
 }
-checkbutton label:not(:only-child):last-child,
-radiobutton label:not(:only-child):last-child {
+checkbutton.text-button label:not(:only-child):last-child,
+radiobutton.text-button label:not(:only-child):last-child {
   margin-right: 0.25em;
 }
+
 checkbutton:hover,
 radiobutton:hover {
   background-color: #1f1f1f;
@@ -981,6 +998,8 @@ radio {
   border-style: solid;
   border-width: 1px;
   border-color: #afafaf;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
   min-height: 1.00005em;
   min-width: 1.00005em;
   -gtk-icon-transform: scale(0.75);
@@ -996,6 +1015,10 @@ popover radio.left:dir(rtl) {
 popover check.right:dir(ltr),
 popover radio.right:dir(ltr) {
   margin-right: unset;
+}
+menu menuitem check,
+menu menuitem radio {
+  margin: unset;
 }
 check:disabled, check:backdrop:disabled,
 radio:disabled,

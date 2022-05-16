@@ -2,6 +2,18 @@ Netronic: Changes
 
 —Update 0
 
+——Revision 6, 05/15/2022.
+- Colors-only Qt5 port.
+- Epiphany preferences `viewswitcher` button workaround.
+- xhdpi themes.
+- Edited (x)hdpi naming.
+- Fixed dark-hdpi menu-prelight and -pressed colors.
+- Restored Adwaita's way of spacing `check`, `checkbutton`, `radio` and
+  `radiobutton`.
+- Restored `.text-button` to `checkbutton` and `radiobutton` selectors except
+  for hover highlights.
+- Updated setup manual for magenta placeholders.
+
 ——Revision 5, 05/03/2022.
 - Removed `.text-button` from `checkbutton` and `radiobutton` selectors.
 -- [https://gitlab.xfce.org/apps/mousepad/-/issues/169]
