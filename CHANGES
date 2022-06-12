@@ -2,6 +2,9 @@ Netronic: Changes
 
 —Update 0
 
+——Revision 7, 06/12/2022.
+- xfwm4 horizontal title offset.
+
 ——Revision 6, 05/15/2022.
 - Colors-only Qt5 port.
 - Epiphany preferences `viewswitcher` button workaround.
