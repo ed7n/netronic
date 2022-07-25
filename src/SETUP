@@ -1,29 +1,37 @@
-Netronic Setup Manual by Brendon, 05/15/2022.
-——https://ed7n.github.io/netronic
+Netronic Setup Manual by Brendon, 07/25/2022.
 
 ——Installation
-Extract the `Netronic` directories to either:
 
-  yourself: `~/.local/share/themes`, or
-  everyone: `/usr/local/share/themes`.
+————GTK3 / Complete
+Extract the `themes` directory to either yourself: `~/.local/share`, or
+everyone: `/usr/local/share`.
 
-Netronic should then be available.
 
-The `wine` directory contains registry files for importing.
+————GTK3 / Individual
+Extract your preferred themes from the `themes` directory to either yourself:
+`~/.local/share/themes`, or everyone: `/usr/local/share/themes`.
 
 
 ————Qt5
 The `qt5ct/colors` directory contains palette files for use with the Qt5
-Configuration Tool (qt5ct). Extract it to either:
+Configuration Tool (qt5ct). Extract it to either yourself: `~/.config/qt5ct`, or
+everyone: `/usr/share/qt5ct`.
 
-  yourself: `~/.config/qt5ct`, or
-  everyone: `/usr/share/qt5ct`.
-
-Netronic should then be available.
-
-If you installed qt5ct during this user session, you may want to relogin for
+If you installed qt5ct during this user session, you may have to relogin for
 changes to start taking effect. The application should inform you on an
 environment variable.
+
+
+————Wine
+The `wine` directory contains registry files for importing.
+
+You may want to disable theming--either in `winecfg`, or import
+`wine/winecfg-notheme.reg`--before importing your preferred `Netronic` registry
+file.
+
+Alternatively, Wine staging users may try the GTK theming feature.
+
+You may need to restart `wineserver` for these to take effect.
 
 
 ——Firefox
@@ -34,17 +42,9 @@ You can use your preferred GTK3 theme in Firefox:
 3. Restart Firefox for these to take effect.
 
 
-——Wine
-Netronic works best with no theme. Either set this at `winecfg`, or import
-`wine/winecfg-notheme.reg`, before importing your preferred `Netronic` registry
-file.
-
-You may need to restart `wineserver` for these to take effect.
-
-
 ——Troubleshooting
 If you extracted the `Netronic` directories elsewhere and an application is not
 themed right, ensure that it can and may read there; check its AppArmor profile.
 
-If you see any odd magenta-colored widgets, you have discovered one of my
-placeholders for the unknowns; please let me know about them.
+If you see any odd magenta-colored widgets, you have discovered one of our
+placeholders for the unknowns; please let us know about them.

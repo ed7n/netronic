@@ -1,3 +1,7 @@
+// Netronic CSS Base
+// ——Variable and mixin definitions.
+//
+// Note that line comments are omitted during compilation.
 @use "sass:math";
 
 @function netRgba($rgb, $a) {
@@ -95,6 +99,32 @@ $colorTooltipBackground: #3f3f0f;
   $colorTooltipBackground: #efefbf;
 }
 
+$colorGtkThemeFgColor: $color;
+$colorGtkThemeTextColor: $color;
+$colorGtkThemeBgColor: $colorAccentMin;
+$colorGtkThemeBaseColor: $colorBackground;
+$colorGtkThemeSelectedBgColor: $colorSelectedBackgroundSolid;
+$colorGtkThemeSelectedFgColor: $color;
+$colorGtkInsensitiveBgColor: $colorAccentMin;
+$colorGtkInsensitiveFgColor: $colorAccentMid;
+$colorGtkInsensitiveBaseColor: $colorBackground;
+$colorGtkThemeUnfocusedFgColor: $colorAccentMax;
+$colorGtkThemeUnfocusedTextColor: $colorAccentMax;
+$colorGtkThemeUnfocusedBgColor: $colorAccentMin;
+$colorGtkThemeUnfocusedBaseColor: $colorAccentMin;
+$colorGtkThemeUnfocusedSelectedBgColor: $colorSelectedBackgroundSolid;
+$colorGtkThemeUnfocusedSelectedFgColor: $colorAccentMax;
+$colorGtkUnfocusedInsensitiveColor: $colorAccentMid;
+$colorGtkBorders: $colorAccentLow;
+$colorGtkUnfocusedBorders: $colorAccentLow;
+$colorGtkWarningColor: $color;
+$colorGtkErrorColor: $colorBad;
+$colorGtkSuccessColor: $color;
+$colorGtkPlaceholderTextColor: $colorAccentHigh;
+$colorGtkLinkColor: $colorAnchor;
+$colorGtkContentViewBg: $colorBackground;
+$colorGtkTextViewBg: $colorBackground;
+
 $fontSizeFactorBump: 1.0833;
 $fontSizeFactorDent: 0.9167;
 $fontSizeFactorH0: 2;
@@ -130,6 +160,7 @@ $spacer10: $spacer * 10;
 $spacer12: $spacer * 12;
 $spacer16: $spacer * 16;
 $spacerPx2: $spacerPx * 2;
+$spacerPx3: $spacerPx * 3;
 $spacerPx4: $spacerPx * 4;
 $lineHeight: $spacer6;
 $lineHeight05: $lineHeight * 0.5;
@@ -138,7 +169,7 @@ $lineHeight075: $lineHeight * 0.75;
 
 $durationSpinnerAnimation: 0.3333s;
 $opacityScrollbar: 0.6667;
-$opacityScrollbarOverlay: 0.3333;
+$opacityScrollbarOverlay: 0.5;
 $scaleCheck: 0.75;
 $widthBorderBumpEnd: $spacerPx2;
 $widthBorderBumpStart: $widthBorderBumpEnd;

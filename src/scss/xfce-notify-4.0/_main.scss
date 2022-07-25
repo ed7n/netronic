@@ -1,0 +1,20 @@
+#XfceNotifyWindow {
+  background-color: $colorAccentMin;
+  border: $spacerPx solid $colorAccentLow;
+}
+
+#XfceNotifyWindow button {
+  @include button();
+}
+
+#XfceNotifyWindow label {
+  color: $color;
+}
+
+#XfceNotifyWindow label#body {
+  font-style: italic;
+}
+
+#XfceNotifyWindow label#summary {
+  font-weight: bold;
+}

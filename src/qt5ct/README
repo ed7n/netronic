@@ -1,5 +1,4 @@
 Netronic qt5ct README by Brendon, 05/15/2022.
-——https://ed7n.github.io/netronic
 
 The `colors` directory contains palette files for use with the Qt5 Configuration
 Tool (qt5ct). This file describes each color to those interested in modifying

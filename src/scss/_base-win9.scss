@@ -1,0 +1,122 @@
+$colorButtonActiveBackgroundSolid: #bfb9ad;
+$colorButtonHoverBackgroundSolid: #e9e7e3;
+$colorControls: #d4d0c8;
+$colorControlsBump: $colorButtonHoverBackgroundSolid;
+$colorControlsDent: $colorButtonActiveBackgroundSolid;
+$colorControlsLight: $colorControlsBump;
+$colorControlsShadow: #5f5f5f;
+$colorFocusOutline: $color;
+$colorHighlightBackgroundSolid: #73de7f;
+$colorHoverBackgroundSolid: $colorControlsBump;
+$colorSelectedBackgroundSolid: #939fbe;
+$colorTitlebarActiveBackground: $colorSelectedBackgroundSolid;
+$colorTitlebarInactive: #6a6864;
+$colorTitlebarInactiveBackground: #bfbfbf;
+$colorTooltipBackground: $colorAccentUnder;
+
+$colorGtkThemeBgColor: $colorControls;
+$colorGtkThemeBaseColor: $colorControls;
+$colorGtkInsensitiveBgColor: $colorControls;
+$colorGtkInsensitiveFgColor: $color;
+$colorGtkInsensitiveBaseColor: $colorControls;
+$colorGtkThemeUnfocusedFgColor: $color;
+$colorGtkThemeUnfocusedTextColor: $color;
+$colorGtkThemeUnfocusedBgColor: $colorControls;
+$colorGtkThemeUnfocusedBaseColor: $colorControls;
+$colorGtkThemeUnfocusedSelectedFgColor: $color;
+$colorGtkUnfocusedInsensitiveColor: $color;
+$colorGtkBorders: $colorAccentMid;
+$colorGtkUnfocusedBorders: $colorAccentMid;
+$colorGtkContentViewBg: $colorControls;
+$colorGtkTextViewBg: $colorControls;
+
+@mixin background() {
+  background-color: $colorControls;
+}
+
+@mixin backgroundBump() {
+  @include background();
+}
+
+@mixin borderColor() {
+  border-color: $colorAccentMid;
+}
+
+@mixin borderColorBump() {
+  border-top-color: $colorControlsLight;
+  border-left-color: $colorControlsLight;
+  border-right-color: $colorControlsShadow;
+  border-bottom-color: $colorControlsShadow;
+}
+
+@mixin borderColorBumpDent() {
+  @include borderColorBump();
+}
+
+@mixin borderColorDent() {
+  border-top-color: $colorControlsShadow;
+  border-left-color: $colorControlsShadow;
+  border-right-color: $colorControlsLight;
+  border-bottom-color: $colorControlsLight;
+}
+
+@mixin button() {
+  @include buttonBackground();
+  @include borderBump();
+  outline-offset: -$spacerPx3;
+  padding: $spacer;
+
+  &:hover {
+    @include buttonHoverBackground();
+  }
+  &:active,
+  &:checked {
+    @include buttonActiveBackground();
+    @include borderColorDent();
+  }
+  &:backdrop:not(:hover):not(:active):not(:checked):not(:disabled) {
+    @include backdropBackground();
+    @include borderColorBumpDent();
+  }
+  &:drop(active) {
+    @include inputHoverBorder();
+  }
+  &.destructive-action {
+    @include buttonBadBackground();
+
+    &:hover {
+      @include buttonBadHoverBackground();
+    }
+    &:active,
+    &:checked {
+      @include buttonBadActiveBackground();
+    }
+  }
+}
+
+@mixin input() {
+  @include backgroundDent();
+  @include borderDent();
+  color: $colorAccentMax;
+  min-height: $lineHeight;
+  padding: $spacer;
+
+  &:hover {
+    @include inputHoverBorder();
+  }
+  &:focus {
+    @include inputFocusBorder();
+  }
+  &:disabled {
+    @include borderColor();
+  }
+  &:drop(active) {
+    &:focus,
+    & {
+      @include inputHoverBorder();
+    }
+  }
+  .error {
+    @include inputInvalidBorder();
+  }
+}

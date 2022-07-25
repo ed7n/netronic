@@ -1,0 +1,138 @@
+/*
+  Netronic GTK3 Stylesheet: Win9
+
+  I gave up inverting the selection text color, thanks to Mousepad. Then again,
+  that is against Netronic's design against neon color schemes. Instead, lighter
+  color accents are used.
+*/
+* {
+  outline-style: dotted;
+}
+
+:backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(:disabled) {
+  color: $color;
+}
+
+/***************
+ * Base States *
+ ***************/
+.rubberband,
+rubberband {
+  background-color: unset;
+  border-color: $colorFocusOutline;
+  border-style: dotted;
+}
+
+separator {
+  background-color: $colorAccentMid;
+}
+
+/***********
+ * Buttons *
+ ***********/
+modelbutton.flat,
+.menuitem.button.flat {
+  &:hover {
+    @include selectedBackground();
+  }
+}
+
+/**************
+ * Headerbars *
+ **************/
+%titlebar,
+headerbar {
+  background-color: $colorTitlebarActiveBackground;
+
+  &:backdrop {
+    background-color: $colorTitlebarInactiveBackground;
+
+    // Selector precedence workaround.
+    label:backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(:disabled) {
+      color: $colorTitlebarInactive;
+    }
+  }
+}
+
+.titlebar:not(headerbar) {
+  @extend %titlebar;
+}
+
+/**************
+ * Tree Views *
+ **************/
+treeview.view {
+  &:not(:hover):not(:selected),
+  &:backdrop:not(:hover):not(:selected) {
+    @include backgroundDent();
+  }
+  &:drop(active) {
+    border-top-color: unset;
+    border-left-color: unset;
+    border-color: $colorFocusOutline;
+    border-style: dotted;
+  }
+}
+
+/*********
+ * Menus *
+ *********/
+menubar,
+.menubar {
+  > menuitem {
+    &:hover {
+      @include selectedBackground();
+    }
+  }
+}
+
+menu,
+.menu,
+.context-menu {
+  menuitem {
+    &:hover {
+      @include selectedBackground();
+    }
+  }
+  > arrow {
+    &:hover {
+      @include selectedBackground();
+    }
+  }
+  > separator {
+    @include borderColor();
+    margin-top: $spacer;
+    margin-bottom: $spacer;
+  }
+}
+
+/************
+ * Popovers *
+ ************/
+popover.background {
+  separator {
+    margin-top: $spacer;
+    margin-bottom: $spacer;
+  }
+}
+
+/***********************
+ * Check + Radio Items *
+ ***********************/
+check,
+radio {
+  &:backdrop:disabled {
+    border-color: unset;
+  }
+}
+
+/**********************
+ * Window Decorations *
+ **********************/
+decoration {
+  &,
+  &:backdrop {
+    box-shadow: 0 0 0 $spacerPx2 $colorControlsShadow,
+      (-$spacerPx) (-$spacerPx) 0 $spacerPx $colorControlsLight;
+  }
+}

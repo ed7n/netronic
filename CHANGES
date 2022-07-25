@@ -1,17 +1,45 @@
 Netronic: Changes
 
+—Update 1
+
+——Revision 0, 07/25/2022.
+- Build scripts.
+- `VERSION` file.
+- Win9 color scheme.
+- Wine control alternate background colors.
+- Xfdesktop colors.
+- XHDPI (200%) themes.
+-- XHDPI (150%) is renamed to HDPI.
+- XXHDPI themes.
+- Edited `calendar:indeterminate` color.
+- Edited HDPI xfwm4 close button.
+- Edited package hierarchy.
+- Edited `scrollbar.overlay-indicator` color and opacity.
+- Edited setup manual.
+- Fixed `.app-notification` border and padding.
+- Fixed `treeview.view check` and `treeview.view radio` background colors.
+- Isolated xfwm4 text colors from GTK3.
+- Moved GTK colors to Sass variables.
+- Omitted unneeded comments from outputs.
+- Renamed HDPI to MHDPI, and XHDPI to HDPI.
+- Renamed Qt5 color schemes.
+- Removed `index.theme` metadata files.
+- Removed unused dependencies on `sass:math`.
+- Variablized Thunar `treeview.view` outline offset.
+- Variablized xfce-notify-4.0 stylesheets.
+
 —Update 0
 
 ——Revision 7, 06/12/2022.
-- xfwm4 horizontal title offset.
+- Xfwm4 horizontal title offset.
 
 ——Revision 6, 05/15/2022.
 - Colors-only Qt5 port.
 - Epiphany preferences `viewswitcher` button workaround.
-- xhdpi themes.
-- Edited (x)hdpi naming.
+- XHDPI themes.
+- Edited (X)HDPI naming.
 - Fixed dark-hdpi menu-prelight and -pressed colors.
-- Restored Adwaita's way of spacing `check`, `checkbutton`, `radio` and
+- Restored Adwaita's way of spacing `check`, `checkbutton`, `radio`, and
   `radiobutton`.
 - Restored `.text-button` to `checkbutton` and `radiobutton` selectors except
   for hover highlights.
