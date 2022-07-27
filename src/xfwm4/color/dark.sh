@@ -66,10 +66,10 @@ def() {
   colorWindowInactiveTitlebar="${colorAccentHigh}"
   colorWindowInactiveTitlebarBackground="${colorAccentMin}"
   colorWindowInactiveBorderTitle="${colorAccentLow}"
-  colorWindowInactiveBorderTop="${colorAccentHigh}"
-  colorWindowInactiveBorderLeft="${colorAccentHigh}"
-  colorWindowInactiveBorderRight="${colorAccentHigh}"
-  colorWindowInactiveBorderBottom="${colorAccentHigh}"
+  colorWindowInactiveBorderTop="${colorAccentLow}"
+  colorWindowInactiveBorderLeft="${colorAccentLow}"
+  colorWindowInactiveBorderRight="${colorAccentLow}"
+  colorWindowInactiveBorderBottom="${colorAccentLow}"
 }
 
 def
