@@ -2,6 +2,13 @@ Netronic: Changes
 
 —Update 1
 
+——Revision 2, 12/31/2022.
+- Project header in `ABOUT`.
+- Rebuilt GTK 3 stylesheets with Sass 1.57.1.
+- Refactored build scripts.
+- Renamed `VERSION` to `ABOUT`.
+- Updated setup manual.
+
 ——Revision 1, 07/27/2022.
 - Fixed xfwm4 dark inactive window border colors.
 
@@ -21,7 +28,7 @@ Netronic: Changes
 - Edited setup manual.
 - Fixed `.app-notification` border and padding.
 - Fixed `treeview.view check` and `treeview.view radio` background colors.
-- Isolated xfwm4 text colors from GTK3.
+- Isolated xfwm4 text colors from GTK 3.
 - Moved GTK colors to Sass variables.
 - Omitted unneeded comments from outputs.
 - Renamed HDPI to MHDPI, and XHDPI to HDPI.

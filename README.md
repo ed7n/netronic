@@ -4,4 +4,4 @@
 
 ## Building
 
-    $ src/scss/build-css.sh && src/xfwm4/build-xfwm4.sh
+    $ src/scss/build.sh && src/xfwm4/build.sh

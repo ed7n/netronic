@@ -1,4 +1,7 @@
-Netronic Setup Manual by Brendon, 07/25/2022.
+Netronic Setup Manual by Brendon, 12/31/2022.
+
+For the latest version, see [https://ed7n.github.io/netronic/setup].
+
 
 ——Installation
 
@@ -18,8 +21,8 @@ Configuration Tool (qt5ct). Extract it to either yourself: `~/.config/qt5ct`, or
 everyone: `/usr/share/qt5ct`.
 
 If you installed qt5ct during this user session, you may have to relogin for
-changes to start taking effect. The application should inform you on an
-environment variable.
+changes to start taking effect. It should inform you when to do this to set
+`QT_QPA_PLATFORMTHEME=qt5ct`.
 
 
 ————Wine
@@ -35,16 +38,42 @@ You may need to restart `wineserver` for these to take effect.
 
 
 ——Firefox
-You can use your preferred GTK3 theme in Firefox:
+The built-in theme can not be completely disabled.
 
-1. Set `widget.non-native-theme.enabled` to false to disable the built-in theme.
+Otherwise, you can use your preferred GTK 3 theme colors in Firefox:
+
+1. Set `widget.non-native-theme.enabled` to `false` to disable the built-in
+theme.
 2. Set `widget.content.gtk-theme-override` to its name.
 3. Restart Firefox for these to take effect.
+4. Set `privacy.resistFingerprinting` to `false`. This may break your privacy.
+
+If the GTK colors on the scrollbar are unfit, then you can disable this by
+setting `widget.gtk.theme-scrollbar-colors.enabled` to `false`.
 
 
 ——Troubleshooting
-If you extracted the `Netronic` directories elsewhere and an application is not
-themed right, ensure that it can and may read there; check its AppArmor profile.
 
-If you see any odd magenta-colored widgets, you have discovered one of our
+————Notice
+The ongoing mix of GTK 3 and 4 has brought issues into Netronic. A way to avoid
+them is not to use graphical applications and resources for GNOME until both
+Xfce and Netronic resolve the discrepancies.
+
+
+————Specific Troubleshooting
+
+If you extracted the theme files elsewhere and an application is not themed
+right, then ensure that it can and may read there; check its AppArmor profile.
+Some applications look only in `/usr/share/themes`, where system-managed themes
+are installed. Installing Netronic there should be fine.
+
+If a GTK 4 application does not use your preferred theme, then it is expected
+that way. libadwaita uses its own theming infrastructure different from that for
+GTK 3. We are likely to follow Xfce's decision on libadwaita.
+
+If icons are not sized or spaced correctly, then you are likely to be using
+version 43 of the Adwaita icon theme. For now, we suggest downgrading to version
+42 at most and lock it there.
+
+If you see any odd magenta-colored widgets, then you have discovered one of our
 placeholders for the unknowns; please let us know about them.
