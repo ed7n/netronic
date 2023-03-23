@@ -2,6 +2,10 @@ Netronic: Changes
 
 —Update 1
 
+——Revision 3, 03/23/2023.
+- Handy dark scheme workaround.
+- Updated SCSS variables.
+
 ——Revision 2, 12/31/2022.
 - Project header in `ABOUT`.
 - Rebuilt GTK 3 stylesheets with Sass 1.57.1.

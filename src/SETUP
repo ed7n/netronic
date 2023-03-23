@@ -1,4 +1,4 @@
-Netronic Setup Manual by Brendon, 12/31/2022.
+Netronic Setup Manual by Brendon, 03/23/2023.
 
 For the latest version, see [https://ed7n.github.io/netronic/setup].
 
@@ -66,6 +66,10 @@ If you extracted the theme files elsewhere and an application is not themed
 right, then ensure that it can and may read there; check its AppArmor profile.
 Some applications look only in `/usr/share/themes`, where system-managed themes
 are installed. Installing Netronic there should be fine.
+
+If a GTK Handy application follows only your dark color scheme and not the theme
+altogether, then use its "darken" alternative. This may break automatic color
+scheme detection.
 
 If a GTK 4 application does not use your preferred theme, then it is expected
 that way. libadwaita uses its own theming infrastructure different from that for

@@ -5,9 +5,9 @@ $colorControlsBump: $colorButtonHoverBackgroundSolid;
 $colorControlsDent: $colorButtonActiveBackgroundSolid;
 $colorControlsLight: $colorControlsBump;
 $colorControlsShadow: #5f5f5f;
-$colorFocusOutline: $color;
 $colorHighlightBackgroundSolid: #73de7f;
 $colorHoverBackgroundSolid: $colorControlsBump;
+$colorOutlineFocus: $color;
 $colorSelectedBackgroundSolid: #939fbe;
 $colorTitlebarActiveBackground: $colorSelectedBackgroundSolid;
 $colorTitlebarInactive: #6a6864;
@@ -63,7 +63,7 @@ $colorGtkTextViewBg: $colorControls;
 @mixin button() {
   @include buttonBackground();
   @include borderBump();
-  outline-offset: -$spacerPx3;
+  outline-offset: -$widthBorder2 - $widthOutlineFocus;
   padding: $spacer;
 
   &:hover {

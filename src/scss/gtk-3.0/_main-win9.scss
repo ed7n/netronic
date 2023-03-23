@@ -1,9 +1,8 @@
 /*
   Netronic GTK3 Stylesheet: Win9
 
-  I gave up inverting the selection text color, thanks to Mousepad. Then again,
-  that is against Netronic's design against neon color schemes. Instead, lighter
-  color accents are used.
+  I gave up inverting the selection text color, thanks to Mousepad. Instead,
+  lighter color accents are used.
 */
 * {
   outline-style: dotted;
@@ -19,7 +18,7 @@
 .rubberband,
 rubberband {
   background-color: unset;
-  border-color: $colorFocusOutline;
+  border-color: $colorOutlineFocus;
   border-style: dotted;
 }
 
@@ -69,7 +68,7 @@ treeview.view {
   &:drop(active) {
     border-top-color: unset;
     border-left-color: unset;
-    border-color: $colorFocusOutline;
+    border-color: $colorOutlineFocus;
     border-style: dotted;
   }
 }
@@ -132,7 +131,7 @@ radio {
 decoration {
   &,
   &:backdrop {
-    box-shadow: 0 0 0 $spacerPx2 $colorControlsShadow,
-      (-$spacerPx) (-$spacerPx) 0 $spacerPx $colorControlsLight;
+    box-shadow: 0 0 0 $widthBorder2 $colorControlsShadow,
+      (-$widthBorder) (-$widthBorder) 0 $widthBorder $colorControlsLight;
   }
 }

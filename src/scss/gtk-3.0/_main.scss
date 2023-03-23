@@ -14,7 +14,7 @@
 
   // We use the outline properties to signal the
   // focus properties to the Adwaita engine.
-  outline: $spacerPx solid $colorFocusOutline;
+  outline: $widthOutlineFocus solid $colorOutlineFocus;
 
   padding: 0;
 
@@ -220,8 +220,8 @@ separator {
   // Workaround: Borders with background, as actual
   // borders may be overdrawn in some cases.
   background-color: $colorAccentLow;
-  min-height: $spacerPx;
-  min-width: $spacerPx;
+  min-height: $widthBorder;
+  min-width: $widthBorder;
 }
 
 /*********************
@@ -239,7 +239,7 @@ spinner {
   &:backdrop {
   }
   &:checked {
-    animation: spin $durationSpinnerAnimation linear infinite;
+    animation: spin $timeSpinnerAnimation linear infinite;
     -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
 
     &:disabled {
@@ -1393,7 +1393,7 @@ treeview.view {
   @include borderColor();
   @include borderWidth();
   // Thunar.
-  outline-offset: -$spacerPx;
+  outline-offset: -$widthOutlineFocus;
 
   @at-root * {
   }
@@ -1710,7 +1710,7 @@ notebook {
 
       > tabs {
         > tab {
-          border-bottom-width: $spacerPx;
+          border-bottom-width: $widthBorder;
 
           &:hover {
           }
@@ -1726,7 +1726,7 @@ notebook {
 
       > tabs {
         > tab {
-          border-top-width: $spacerPx;
+          border-top-width: $widthBorder;
 
           &:hover {
           }
@@ -1742,7 +1742,7 @@ notebook {
 
       > tabs {
         > tab {
-          border-right-width: $spacerPx;
+          border-right-width: $widthBorder;
 
           &:hover {
           }
@@ -1758,7 +1758,7 @@ notebook {
 
       > tabs {
         > tab {
-          border-left-width: $spacerPx;
+          border-left-width: $widthBorder;
 
           &:hover {
           }
@@ -3265,18 +3265,18 @@ decoration {
   //@include borderBump();
   // Workaround: Borders with `box-shadow`.
   @if $variant == "light" {
-    box-shadow: 0 0 0 $spacerPx2 $colorAccentHigh,
-      (-$spacerPx) (-$spacerPx) 0 $spacerPx $colorAccentLow;
+    box-shadow: 0 0 0 $widthBorder2 $colorAccentHigh,
+      (-$widthBorder) (-$widthBorder) 0 $widthBorder $colorAccentLow;
   } @else {
-    box-shadow: 0 0 0 $spacerPx2 $colorAccentLow,
-      (-$spacerPx) (-$spacerPx) 0 $spacerPx $colorAccentHigh;
+    box-shadow: 0 0 0 $widthBorder2 $colorAccentLow,
+      (-$widthBorder) (-$widthBorder) 0 $widthBorder $colorAccentHigh;
   }
   // Resize area.
   margin: $widthResizeArea;
 
   &:backdrop {
     //@include borderColor();
-    box-shadow: 0 0 0 $spacerPx2 $colorAccentLow;
+    box-shadow: 0 0 0 $widthBorder2 $colorAccentLow;
   }
   .maximized &,
   .fullscreen & {

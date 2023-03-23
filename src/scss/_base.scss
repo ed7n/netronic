@@ -44,7 +44,6 @@ $colorButtonBadHoverBackground: netRgba(#7f0f0f, 127);
 $colorButtonBadHoverBackgroundSolid: #4f1717;
 $colorButtonHoverBackground: netRgba(#0f0fef, 63);
 $colorButtonHoverBackgroundSolid: #1a1a52;
-$colorFocusOutline: #efbf0f;
 $colorHighlightBackground: netRgba(#ef7f0f, 127);
 $colorHighlightBackgroundSolid: #874f17;
 $colorHoverBackground: netRgba(#7f7f7f, 36);
@@ -54,13 +53,15 @@ $colorInputBackground: $colorAccentUnder;
 $colorInputFocusBorder: #0fbfef;
 $colorInputHoverBorder: #0f0fef;
 $colorInputInvalidBorder: #ef0fbf;
-$colorNetMenuActiveBackground: $colorButtonActiveBackground;
-$colorNetMenuFocusBackground: $colorButtonActiveBackground;
-$colorNetMenuHoverBackground: $colorButtonHoverBackground;
+$colorOutlineFocus: #efbf0f;
+$colorSamp: #7fef0f;
 $colorSelectedBackground: netRgba(#0fbfbf, 79);
 $colorSelectedBackgroundSolid: #1a5151;
 $colorTechnical: #efbf7f;
 $colorTooltipBackground: #3f3f0f;
+$colorUnaMenuActiveBackground: $colorButtonActiveBackground;
+$colorUnaMenuFocusBackground: $colorButtonActiveBackground;
+$colorUnaMenuHoverBackground: $colorButtonHoverBackground;
 
 @if $variant == "light" {
   $color: #0f0f0f;
@@ -94,6 +95,7 @@ $colorTooltipBackground: #3f3f0f;
   $colorButtonHoverBackgroundSolid: #ababe3;
   $colorHighlightBackgroundSolid: #efb77f;
   $colorHoverBackgroundSolid: #dfdfdf;
+  $colorSamp: #2f5f0f;
   $colorSelectedBackgroundSolid: #9fd5d5;
   $colorTechnical: #7f3f0f;
   $colorTooltipBackground: #efefbf;
@@ -130,12 +132,12 @@ $fontSizeFactorDent: 0.9167;
 $fontSizeFactorH0: 2;
 $fontSizeFactorH1: 1.6667;
 $fontSizeFactorH2: 1.3333;
-$fontSizeFactorH3: 1.125;
-$fontSizeFactorH4: 1;
+$fontSizeFactorH3: 1.0625;
+$fontSizeFactorH4: 0.95;
 $fontSizeFactorH5: 0.875;
 $fontSizeFactorH6: 0.775;
-$fontSizeFactorNetMenu: $fontSizeFactorH5;
 $fontSizeFactorSmaller: $fontSizeFactorH5;
+$fontSizeFactorUnaMenu: $fontSizeFactorH5;
 $fontSize: 1em;
 $fontSizeBump: $fontSize * $fontSizeFactorBump;
 $fontSizeDent: $fontSize * $fontSizeFactorDent;
@@ -146,8 +148,8 @@ $fontSizeH3: $fontSize * $fontSizeFactorH3;
 $fontSizeH4: $fontSize * $fontSizeFactorH4;
 $fontSizeH5: $fontSize * $fontSizeFactorH5;
 $fontSizeH6: $fontSize * $fontSizeFactorH6;
-$fontSizeNetMenu: $fontSize * $fontSizeFactorNetMenu;
 $fontSizeSmaller: $fontSize * $fontSizeFactorSmaller;
+$fontSizeUnaMenu: $fontSize * $fontSizeFactorUnaMenu;
 $spacer: 0.25em;
 $spacer2: $spacer * 2;
 $spacer3: $spacer * 3;
@@ -167,16 +169,20 @@ $lineHeight05: $lineHeight * 0.5;
 $lineHeight067: $lineHeight * 0.6667;
 $lineHeight075: $lineHeight * 0.75;
 
-$durationSpinnerAnimation: 0.3333s;
 $opacityScrollbar: 0.6667;
 $opacityScrollbarOverlay: 0.5;
 $scaleCheck: 0.75;
-$widthBorderBumpEnd: $spacerPx2;
+$timeSpinnerAnimation: 0.3333s;
+$widthBorder: $spacerPx;
+$widthBorder2: $spacerPx2;
+$widthBorderBumpEnd: $widthBorder2;
 $widthBorderBumpStart: $widthBorderBumpEnd;
-$widthBorderDentEnd: $spacerPx;
-$widthBorderDentStart: $spacerPx2;
+$widthBorderDentEnd: $widthBorder;
+$widthBorderDentStart: $widthBorderBumpStart;
+$widthBorderThick: $widthBorder2;
 $widthIcon: $lineHeight067;
 $widthMeter: $spacer2;
+$widthOutlineFocus: $spacerPx;
 $widthResizeArea: $spacerPx2;
 $widthScaleSlider: $spacer2;
 $widthScrollbar: $spacer4;
@@ -279,7 +285,7 @@ $widthScrollbarOverlay: $spacer;
 }
 
 @mixin borderWidth() {
-  border-width: $spacerPx;
+  border-width: $widthBorder;
 }
 
 @mixin borderWidthBump() {
