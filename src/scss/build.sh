@@ -2,7 +2,7 @@
 
 {
   declare -p ews || declare -A ews=([base]="${0%/*}" [exec]="${0}" \
-      [name]='Netronic GTK3 Themes Builder' [sign]='by Brendon, 12/31/2022.')
+      [name]='Netronic GTK Themes Builder' [sign]='by Brendon, 03/27/2023.')
 } &> /dev/null
 
 # DPIs.
@@ -45,7 +45,7 @@ for netIdx in $(eval echo "{0..$(( ${#NET_VARS[@]} - 1 ))}"); do
     (( ${#netSuf} )) && {
       netInp="${netSuf:1}" || :
     } || netInp="${netVar}"
-    for netPla in 'gtk-3.0' 'xfce-notify-4.0'; do
+    for netPla in 'gtk-3.0' 'gtk-4.0' 'xfce-notify-4.0'; do
       netItm="${ews[base]}"'/'"${netPla}"'/'"${netInp}"'.scss'
       NET.test "${netItm}"
       netArgs+=("${netItm}"':'"${NET_OUT}"'/'"${NET_PRE}""${netSuf}"'/'"${netPla}"'/gtk.css')

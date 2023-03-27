@@ -4,6 +4,8 @@
 // Note that line comments are omitted during compilation.
 @use "sass:math";
 
+$platform: "gtk-3.0";
+
 @function netRgba($rgb, $a) {
   @return transparentize($rgb, math.div(255 - $a, 255));
 }
@@ -171,6 +173,7 @@ $lineHeight075: $lineHeight * 0.75;
 
 $opacityScrollbar: 0.6667;
 $opacityScrollbarOverlay: 0.5;
+$paddingEntry: $spacer;
 $scaleCheck: 0.75;
 $timeSpinnerAnimation: 0.3333s;
 $widthBorder: $spacerPx;
@@ -305,10 +308,15 @@ $widthScrollbarOverlay: $spacer;
 @mixin button() {
   @include buttonBackground();
   @include borderBump();
-  padding: $spacer;
+  padding: $paddingEntry;
 
   &:hover {
     @include buttonHoverBackground();
+  }
+  @if $platform == "gtk-4.0" {
+    &:focus {
+      outline: $widthOutlineFocus solid $colorOutlineFocus;
+    }
   }
   &:active,
   &:checked {
@@ -375,13 +383,18 @@ $widthScrollbarOverlay: $spacer;
   @include borderDent();
   color: $colorAccentMax;
   min-height: $lineHeight;
-  padding: $spacer;
+  padding: $paddingEntry;
 
   &:hover {
     @include inputHoverBorder();
   }
   &:focus {
     @include inputFocusBorder();
+  }
+  @if $platform == "gtk-4.0" {
+    &:focus-within {
+      @include inputFocusBorder();
+    }
   }
   &:disabled {
     @include borderColor();

@@ -64,10 +64,15 @@ $colorGtkTextViewBg: $colorControls;
   @include buttonBackground();
   @include borderBump();
   outline-offset: -$widthBorder2 - $widthOutlineFocus;
-  padding: $spacer;
+  padding: $paddingEntry;
 
   &:hover {
     @include buttonHoverBackground();
+  }
+  @if $platform == "gtk-4.0" {
+    &:focus {
+      outline: $widthOutlineFocus dotted $colorOutlineFocus;
+    }
   }
   &:active,
   &:checked {
@@ -99,7 +104,7 @@ $colorGtkTextViewBg: $colorControls;
   @include borderDent();
   color: $colorAccentMax;
   min-height: $lineHeight;
-  padding: $spacer;
+  padding: $paddingEntry;
 
   &:hover {
     @include inputHoverBorder();

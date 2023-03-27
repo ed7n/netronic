@@ -1,21 +1,21 @@
-Netronic Setup Manual by Brendon, 03/23/2023.
+Netronic Setup Manual by Brendon, 03/27/2023.
 
 For the latest version, see [https://ed7n.github.io/netronic/setup].
 
 
 ——Installation
 
-————GTK3 / Complete
+————GTK / Complete
 Extract the `themes` directory to either yourself: `~/.local/share`, or
 everyone: `/usr/local/share`.
 
 
-————GTK3 / Individual
+————GTK / Individual
 Extract your preferred themes from the `themes` directory to either yourself:
 `~/.local/share/themes`, or everyone: `/usr/local/share/themes`.
 
 
-————Qt5
+————Qt 5
 The `qt5ct/colors` directory contains palette files for use with the Qt5
 Configuration Tool (qt5ct). Extract it to either yourself: `~/.config/qt5ct`, or
 everyone: `/usr/share/qt5ct`.
@@ -38,7 +38,8 @@ You may need to restart `wineserver` for these to take effect.
 
 
 ——Firefox
-The built-in theme can not be completely disabled.
+The built-in theme can not be completely disabled. See Mozilla bug 1749645 for
+a discussion.
 
 Otherwise, you can use your preferred GTK 3 theme colors in Firefox:
 
@@ -55,25 +56,21 @@ setting `widget.gtk.theme-scrollbar-colors.enabled` to `false`.
 ——Troubleshooting
 
 ————Notice
-The ongoing mix of GTK 3 and 4 has brought issues into Netronic. A way to avoid
-them is not to use graphical applications and resources for GNOME until both
-Xfce and Netronic resolve the discrepancies.
+Xfce 4.18 resolved some significant issues with Handy and GTK 4, and we followed
+it with initial support. So if you have issues with either, update both Xfce and
+Netronic first.
 
 
 ————Specific Troubleshooting
-
 If you extracted the theme files elsewhere and an application is not themed
 right, then ensure that it can and may read there; check its AppArmor profile.
 Some applications look only in `/usr/share/themes`, where system-managed themes
 are installed. Installing Netronic there should be fine.
 
-If a GTK Handy application follows only your dark color scheme and not the theme
-altogether, then use its "darken" alternative. This may break automatic color
-scheme detection.
-
-If a GTK 4 application does not use your preferred theme, then it is expected
-that way. libadwaita uses its own theming infrastructure different from that for
-GTK 3. We are likely to follow Xfce's decision on libadwaita.
+If a Handy application follows your dark color scheme but not the theme
+altogether, then either rename the theme or make a symbolic link to it, as long
+as its name does not end with "-dark". This workaround foregoes system-wide
+"dark mode."
 
 If icons are not sized or spaced correctly, then you are likely to be using
 version 43 of the Adwaita icon theme. For now, we suggest downgrading to version

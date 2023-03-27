@@ -2,6 +2,11 @@ Netronic: Changes
 
 —Update 1
 
+——Revision 4, 03/27/2023.
+- Initial GTK 4 support.
+- Removed Handy dark scheme workaround.
+  - Provided instructions instead.
+
 ——Revision 3, 03/23/2023.
 - Handy dark scheme workaround.
 - Updated SCSS variables.

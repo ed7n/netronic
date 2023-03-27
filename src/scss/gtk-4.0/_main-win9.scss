@@ -1,13 +1,4 @@
-/*
-  Netronic GTK 3 Stylesheet: Win9
-
-  I gave up inverting the selection text color, thanks to Mousepad. Instead,
-  lighter color accents are used.
-*/
-* {
-  outline-style: dotted;
-}
-
+/* Netronic GTK 4 Stylesheet: Win9 */
 :backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(:disabled) {
   color: $color;
 }
@@ -78,6 +69,7 @@ treeview.view {
  *********/
 menubar,
 .menubar {
+  > item,
   > menuitem {
     &:hover {
       @include selectedBackground();
@@ -88,6 +80,7 @@ menubar,
 menu,
 .menu,
 .context-menu {
+  item,
   menuitem {
     &:hover {
       @include selectedBackground();

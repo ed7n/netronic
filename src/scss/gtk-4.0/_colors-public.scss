@@ -1,0 +1,73 @@
+// GTK Named Colors
+//
+// Applications rely on some named colors to be exported.
+//
+// Sass thinks we are using colors in the variables as strings and may throw
+// warnings. It is innocuous and can be defeated by prepending `""`.
+
+// Widget text/foreground color.
+@define-color theme_fg_color #{"" + $colorGtkThemeFgColor};
+
+// Text color for entries, views, and content in general.
+@define-color theme_text_color #{"" + $colorGtkThemeTextColor};
+
+// Widget base background color.
+@define-color theme_bg_color #{"" + $colorGtkThemeBgColor};
+
+// Text widgets and the like base background color.
+@define-color theme_base_color #{"" + $colorGtkThemeBaseColor};
+
+// Base background color for selections.
+@define-color theme_selected_bg_color #{"" + $colorGtkThemeSelectedBgColor};
+
+// Text/foreground color for selections.
+@define-color theme_selected_fg_color #{"" + $colorGtkThemeSelectedFgColor};
+
+// Base background color for insensitive widgets.
+@define-color insensitive_bg_color #{"" + $colorGtkInsensitiveBgColor};
+
+// Text foreground color for insensitive widgets.
+@define-color insensitive_fg_color #{"" + $colorGtkInsensitiveFgColor};
+
+// Insensitive text widgets and the like base background color.
+@define-color insensitive_base_color #{"" + $colorGtkInsensitiveBaseColor};
+
+// Widget text/foreground color on backdrop windows.
+@define-color theme_unfocused_fg_color #{"" + $colorGtkThemeUnfocusedFgColor};
+
+// Text color for entries, views and content in general on backdrop windows.
+@define-color theme_unfocused_text_color #{"" + $colorGtkThemeUnfocusedTextColor};
+
+// Widget base background color on backdrop windows.
+@define-color theme_unfocused_bg_color #{"" + $colorGtkThemeUnfocusedBgColor};
+
+// Text widgets and the like base background color on backdrop windows.
+@define-color theme_unfocused_base_color #{"" + $colorGtkThemeUnfocusedBaseColor};
+
+// Base background color for selections on backdrop windows.
+@define-color theme_unfocused_selected_bg_color #{"" + $colorGtkThemeUnfocusedSelectedBgColor};
+
+// Text/foreground color for selections on backdrop windows.
+@define-color theme_unfocused_selected_fg_color #{"" + $colorGtkThemeUnfocusedSelectedFgColor};
+
+// Insensitive color on backdrop windows.
+@define-color unfocused_insensitive_color #{"" + $colorGtkUnfocusedInsensitiveColor};
+
+// Widgets main borders color.
+@define-color borders #{"" + $colorGtkBorders};
+
+// Widgets main borders color on backdrop windows.
+@define-color unfocused_borders #{"" + $colorGtkUnfocusedBorders};
+
+// These are pretty self explicative.
+@define-color warning_color #{"" + $colorGtkWarningColor};
+@define-color error_color #{"" + $colorGtkErrorColor};
+@define-color success_color #{"" + $colorGtkSuccessColor};
+@define-color placeholder_text_color #{"" + $colorGtkPlaceholderTextColor};
+@define-color link_color #{"" + $colorGtkLinkColor};
+
+// Content view background such as thumbnails view in Photos or Boxes.
+@define-color content_view_bg #{"" + $colorGtkContentViewBg};
+
+// Very contrasty background for text views (@theme_text_color foreground).
+@define-color text_view_bg #{"" + $colorGtkTextViewBg};

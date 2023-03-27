@@ -1,20 +1,31 @@
 // The following makes sense only in the compiled file.
 /*
-  Netronic GTK 3 Stylesheet
+  Netronic GTK 4 Stylesheet
 
   This file is compiled with Sass and thus may be messy due to overrides. We
   recommend seeing the source SCSS files instead.
 */
+// Modified from the GTK 3 counterpart, notable changes so far include:
+//
+// - `button.color` becomes `colorbutton`.
+// - `button.font` becomes `fontbutton`.
+// - `colorchooser` hover behavior.
+// - `comboboxes` becomes `dropdown`.
+// - `entry` becomes `text`?
+// - `menuitem` becomes `item`.
+// - `placeholder`.
+// - `switch` node structure.
+// - Explicit focus outline styles.
+//
+// All GTK 3 selectors and most styles were kept, just in case. The
+// default GTK 4 theme expects compositing, so does Netronic.
 * {
+  // GNOME Firmware.
+  border-radius: 0;
   color: $color;
   margin: 0;
   min-height: 0;
   min-width: 0;
-
-  // We use the outline properties to signal the
-  // focus properties to the Adwaita engine.
-  outline: $widthOutlineFocus solid $colorOutlineFocus;
-
   padding: 0;
 
   // These are case-sensitive, and formatters may break them. In case
@@ -427,6 +438,12 @@ entry {
     }
   }
   &.error {
+  }
+  placeholder {
+    color: $colorAccentHigh;
+  }
+  > progress {
+    border-bottom: unset;
   }
 }
 
@@ -850,7 +867,12 @@ modelbutton.flat arrow {
   }
 }
 
-button.color {
+modelbutton > label {
+	margin-right: $spacer2;
+}
+
+button.color,
+colorbutton {
   colorswatch:only-child {
     &,
     overlay {
@@ -869,6 +891,14 @@ list row button.image-button:not(.flat) {
   }
   &:active,
   &:checked {
+  }
+}
+
+button.font,
+fontbutton {
+  label {
+    padding-left: $paddingEntry;
+    padding-right: $paddingEntry;
   }
 }
 
@@ -957,7 +987,8 @@ spinbutton {
       &:backdrop:disabled {
       }
     }
-    entry {
+    entry,
+    text {
       @extend %spinbutton_horz_entry;
     }
     button {
@@ -987,7 +1018,8 @@ spinbutton {
     }
   }
   .osd &:not(.vertical) {
-    entry {
+    entry,
+    text {
       @extend %spinbutton_horz_entry;
     }
     button {
@@ -1013,7 +1045,9 @@ spinbutton {
     }
     &:drop(active) {
     }
-    entry {
+    entry,
+    text {
+      @extend %entry;
     }
     button {
       &.up {
@@ -1039,15 +1073,17 @@ spinbutton {
     }
   }
   treeview &:not(.vertical) {
-    entry {
+    entry,
+    text {
     }
   }
 }
 
-/**************
- * Comboboxes *
- **************/
-combobox {
+/*************
+ * Dropdowns *
+ *************/
+combobox,
+dropdown {
   arrow {
     min-height: $widthIcon;
     min-width: $widthIcon;
@@ -1528,6 +1564,7 @@ menubar,
 
   &:backdrop {
   }
+  > item,
   > menuitem {
     padding-top: $spacer;
     padding-left: $spacer2;
@@ -1566,6 +1603,7 @@ menu,
   &:backdrop {
     @include backdropBackground();
   }
+  item,
   menuitem {
     padding: $spacer;
 
@@ -1647,6 +1685,7 @@ menu,
   }
 }
 
+menu item,
 menuitem {
   accelerator {
   }
@@ -2048,8 +2087,13 @@ switch {
     &:disabled {
     }
   }
+  // Unlike GTK 3, interaction pseudoclasses apply to the switch
+  // instead of the slider. Defining their slider styles conflicts
+  // with those for backdrop in the button mixin (see their
+  // specificity). So we define all slider styles manually.
   slider {
-    @include button();
+    @include buttonBackground();
+    @include borderBump();
     margin: -$spacerPx;
     min-width: $lineHeight;
     min-height: $lineHeight;
@@ -2058,17 +2102,26 @@ switch {
   image {
   }
   &:hover slider {
+    @include buttonHoverBackground();
   }
   &:checked > slider {
+    @include buttonActiveBackground();
+    @include borderColorDent();
   }
   &:disabled slider {
+    @include borderColor();
   }
   &:backdrop {
     slider {
+      @include backdropBackground();
+      @include borderColorBumpDent();
     }
-    &:checked > slider {
+    &:checked > slider:backdrop {
+      @include buttonActiveBackground();
+      @include borderColorDent();
     }
     &:disabled slider {
+      @include borderColor();
     }
   }
   row:selected & {
@@ -2167,6 +2220,7 @@ radio {
     &:disabled {
     }
   }
+  menu item,
   menu menuitem & {
     // Workaround: Align with image menuitems.
     margin: unset;
@@ -2235,6 +2289,7 @@ check {
   }
 }
 
+menu item,
 menu menuitem {
   radio,
   check {
@@ -2784,6 +2839,7 @@ row {
  * Expanders *
  *************/
 expander {
+  &,
   title > arrow {
     min-height: $widthIcon;
     min-width: $widthIcon;
@@ -3119,6 +3175,8 @@ infobar {
  * Tooltips *
  ************/
 tooltip {
+  padding: $spacer;
+
   &.background {
     @include border();
     // `background-color` needs to be set this way otherwise it gets drawn
@@ -3223,7 +3281,8 @@ colorchooser .popover.osd {
 }
 
 colorchooser > box > box,
-colorchooser > box > grid {
+colorchooser > box > grid,
+colorchooser > box > overlay {
   @include borderDent();
   background-color: $colorAccentMid;
   padding: $spacer;
@@ -3270,22 +3329,7 @@ colorchooser > box > grid {
  * Window Decorations *
  **********************/
 decoration {
-  // Ignored by Handy.
-  //@include borderBump();
-  // Workaround: Borders with `box-shadow`.
-  @if $variant == "light" {
-    box-shadow: 0 0 0 $widthBorder2 $colorAccentHigh,
-      (-$widthBorder) (-$widthBorder) 0 $widthBorder $colorAccentLow;
-  } @else {
-    box-shadow: 0 0 0 $widthBorder2 $colorAccentLow,
-      (-$widthBorder) (-$widthBorder) 0 $widthBorder $colorAccentHigh;
-  }
-  // Resize area.
-  margin: $widthResizeArea;
-
   &:backdrop {
-    //@include borderColor();
-    box-shadow: 0 0 0 $widthBorder2 $colorAccentLow;
   }
   .maximized &,
   .fullscreen & {
@@ -3305,16 +3349,10 @@ decoration {
   .ssd &:backdrop {
   }
   .csd.popup & {
-    @include borderBump();
-    box-shadow: unset;
   }
   tooltip.csd & {
-    //border: unset;
-    box-shadow: unset;
   }
   messagedialog.csd & {
-    @include borderBump();
-    box-shadow: unset;
   }
   .solid-csd & {
     &:backdrop {
@@ -3341,6 +3379,15 @@ button.titlebutton {
 headerbar.selection-mode button.titlebutton,
 .titlebar.selection-mode button.titlebutton {
   &:backdrop {
+  }
+}
+
+// GTK 4.
+window.csd {
+  @include borderBump();
+
+  &:backdrop {
+    @include borderColor();
   }
 }
 
