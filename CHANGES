@@ -2,6 +2,14 @@ Netronic: Changes
 
 —Update 1
 
+——Revision 5, 04/04/2023.
+- Completed build command in README.
+- GTK 4 menu button arrows.
+- GTK 4 rows in dropdowns workaround.
+- GTK 4 statusbar styles.
+  - Statusbars exist in GTK 3 but not needed to be styled.
+- Variablized SCSS executable.
+
 ——Revision 4, 03/27/2023.
 - Initial GTK 4 support.
 - Removed Handy dark scheme workaround.

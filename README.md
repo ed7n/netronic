@@ -4,4 +4,4 @@
 
 ## Building
 
-    $ src/scss/build.sh && src/xfwm4/build.sh
+    $ src/scss/build.sh && src/xfwm4/build.sh && cp -ruv src/ABOUT src/SETUP src/qt5ct src/wine release/netronic

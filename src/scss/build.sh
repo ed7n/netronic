@@ -2,13 +2,15 @@
 
 {
   declare -p ews || declare -A ews=([base]="${0%/*}" [exec]="${0}" \
-      [name]='Netronic GTK Themes Builder' [sign]='by Brendon, 03/27/2023.')
+      [name]='Netronic GTK Themes Builder' [sign]='by Brendon, 04/04/2023.')
 } &> /dev/null
 
 # DPIs.
 readonly -a NET_DPIS=('mdpi' 'hdpi' 'xhdpi' 'xxhdpi')
 # Variants.
 readonly -a NET_VARS=('light' 'dark' 'win9')
+# SCSS executable.
+readonly SHF_EXE='scss'
 # Output path.
 readonly NET_OUT="${ews[base]}"'/../../release/netronic/themes'
 # Output prefix.
@@ -53,5 +55,5 @@ for netIdx in $(eval echo "{0..$(( ${#NET_VARS[@]} - 1 ))}"); do
   done
 done
 echo 'Now building.'
-sass --update --no-source-map --stop-on-error "${netArgs[@]}" || NET.die
+"${SHF_EXE}" --update --no-source-map --stop-on-error "${netArgs[@]}" || NET.die
 echo 'Done.'

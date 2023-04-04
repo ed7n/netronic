@@ -701,6 +701,11 @@ button {
     &:hover:not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
     }
   }
+  // Workaround: GTK 4 dropdowns may contain `row`s. Defining this
+  // under dropdowns breaks their underlying list of `row`s.
+  row.activatable:not(:selected):not(:active):hover {
+    background-color: unset;
+  }
 }
 
 %needs_attention {
@@ -2714,6 +2719,7 @@ printdialog {
 /**********
  * Frames *
  **********/
+frame,
 frame > border,
 .frame {
   @include border();
@@ -2775,6 +2781,10 @@ list {
   }
   row {
     padding: $spacer;
+  }
+  // Workaround: see `button row.activatable:not(:selected):not(:active):hover`.
+  button row {
+    padding: unset;
   }
 }
 
@@ -3505,6 +3515,37 @@ popover.emoji-completion contents row box {
 }
 
 popover.emoji-completion .emoji:hover {
+}
+
+popover.entry-completion > contents {
+  padding: 0;
+}
+
+statusbar {
+  padding: $spacer;
+}
+
+menubutton {
+  > button > box {
+  }
+
+  arrow {
+    &.none {
+      -gtk-icon-source: -gtk-icontheme('open-menu-symbolic');
+    }
+    &.down {
+      -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+    }
+    &.up {
+      -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+    }
+    &.left {
+      -gtk-icon-source: -gtk-icontheme('pan-start-symbolic');
+    }
+    &.right {
+      -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+    }
+  }
 }
 
 // XFCE Desktop Manager
