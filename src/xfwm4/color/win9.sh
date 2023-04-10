@@ -1,6 +1,6 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-def() {
+NET.def() {
   local \
       color='#0f0f0f' \
       colorControls='#d4d0c8'
@@ -70,4 +70,4 @@ def() {
   colorWindowInactiveBorderBottom="${colorControlsShadow}"
 }
 
-def
+NET.def

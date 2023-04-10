@@ -1,4 +1,4 @@
-Netronic Setup Manual by Brendon, 03/27/2023.
+Netronic Setup Manual by Brendon, 04/10/2023.
 
 For the latest version, see [https://ed7n.github.io/netronic/setup].
 
@@ -71,10 +71,6 @@ If a Handy application follows your dark color scheme but not the theme
 altogether, then either rename the theme or make a symbolic link to it, as long
 as its name does not end with "-dark". This workaround foregoes system-wide
 "dark mode."
-
-If icons are not sized or spaced correctly, then you are likely to be using
-version 43 of the Adwaita icon theme. For now, we suggest downgrading to version
-42 at most and lock it there.
 
 If you see any odd magenta-colored widgets, then you have discovered one of our
 placeholders for the unknowns; please let us know about them.

@@ -5,7 +5,10 @@
   This file is compiled with Sass and thus may be messy due to overrides. We
   recommend seeing the source SCSS files instead.
 */
+@use "sass:math";
 * {
+  // GNOME Firmware.
+  border-radius: 0;
   color: $color;
   margin: 0;
   min-height: 0;
@@ -146,7 +149,7 @@ flowbox {
 }
 
 label {
-  min-height: $lineHeight;
+  min-height: $lineHeight * 1em;
 
   &.separator {
     @extend .dim-label;
@@ -679,7 +682,9 @@ button {
   &.circular {
     label {
     }
-    &:not(.flat):not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
+    &:not(.flat):not(.osd):not(:checked):not(:active):not(:disabled):not(
+        :backdrop
+      ) {
     }
     &:hover:not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
     }
@@ -877,6 +882,8 @@ list row button.image-button:not(.flat) {
  *********/
 %link,
 *:link {
+  text-decoration-line: underline;
+
   &:visited {
     *:selected & {
     }
@@ -926,7 +933,6 @@ button:visited {
   }
   > label {
     @extend %link;
-    text-decoration-line: underline;
 
     &:hover,
     &:active {
@@ -1049,8 +1055,9 @@ spinbutton {
  **************/
 combobox {
   arrow {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
+    padding: math.max(0, math.div($lengthInputBumpMin - $lengthIcon, 2));
     -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
   }
   &.linked {
@@ -1440,8 +1447,8 @@ treeview.view {
     }
   }
   &.expander {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
 
     &:dir(rtl) {
@@ -1587,8 +1594,8 @@ menu,
     }
     // Submenu arrows.
     arrow {
-      min-height: $widthIcon;
-      min-width: $widthIcon;
+      min-height: $lengthIcon;
+      min-width: $lengthIcon;
 
       &:dir(ltr) {
         margin-left: $spacer2;
@@ -1621,8 +1628,8 @@ menu,
   }
   // Overflow arrows.
   > arrow {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
     padding: $spacer;
 
     &.top {
@@ -2051,8 +2058,7 @@ switch {
   slider {
     @include button();
     margin: -$spacerPx;
-    min-width: $lineHeight;
-    min-height: $lineHeight;
+    min-width: $lengthInputBumpMin;
     padding: unset;
   }
   image {
@@ -2118,8 +2124,8 @@ radio {
   border-color: $colorAccentHigh;
   margin-left: $spacer;
   margin-right: $spacer;
-  min-height: $widthIcon;
-  min-width: $widthIcon;
+  min-height: $lengthInputSwitch;
+  min-width: $lengthInputSwitch;
   -gtk-icon-transform: scale($scaleCheck);
 
   &:only-child {
@@ -2785,8 +2791,8 @@ row {
  *************/
 expander {
   title > arrow {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
 
     &:dir(rtl) {

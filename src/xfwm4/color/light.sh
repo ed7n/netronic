@@ -1,6 +1,6 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-def() {
+NET.def() {
   local \
       color='#0f0f0f' \
       colorAccentHigh='#4f4f4f' \
@@ -72,4 +72,4 @@ def() {
   colorWindowInactiveBorderBottom="${colorAccentLow}"
 }
 
-def
+NET.def

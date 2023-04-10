@@ -2,6 +2,15 @@ Netronic: Changes
 
 —Update 1
 
+——Revision 6, 04/10/2023.
+- Explicit underlining of links.
+- Minimum metrices for GTK buttons.
+- Removed check and radio icon scaling.
+- Removed troubleshooting of icons from setup manual.
+- SCSS root-relative pixel spacer.
+  - Eliminated need for DPI variations on GTK themes.
+- Updated SCSS variables.
+
 ——Revision 5, 04/04/2023.
 - Completed build command in README.
 - GTK 4 menu button arrows.

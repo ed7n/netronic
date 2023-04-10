@@ -6,11 +6,11 @@
 } &> /dev/null
 
 # DPIs.
-readonly -a NET_DPIS=('mdpi' 'hdpi' 'xhdpi' 'xxhdpi')
+readonly -a NET_DPIS=('mdpi')
 # Variants.
 readonly -a NET_VARS=('light' 'dark' 'win9')
 # SCSS executable.
-readonly SHF_EXE='scss'
+readonly SHF_EXE='sass'
 # Output path.
 readonly NET_OUT="${ews[base]}"'/../../release/netronic/themes'
 # Output prefix.

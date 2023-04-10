@@ -19,6 +19,7 @@
 //
 // All GTK 3 selectors and most styles were kept, just in case. The
 // default GTK 4 theme expects compositing, so does Netronic.
+@use "sass:math";
 * {
   // GNOME Firmware.
   border-radius: 0;
@@ -157,7 +158,7 @@ flowbox {
 }
 
 label {
-  min-height: $lineHeight;
+  min-height: $lineHeight * 1em;
 
   &.separator {
     @extend .dim-label;
@@ -696,7 +697,9 @@ button {
   &.circular {
     label {
     }
-    &:not(.flat):not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
+    &:not(.flat):not(.osd):not(:checked):not(:active):not(:disabled):not(
+        :backdrop
+      ) {
     }
     &:hover:not(.osd):not(:checked):not(:active):not(:disabled):not(:backdrop) {
     }
@@ -873,7 +876,7 @@ modelbutton.flat arrow {
 }
 
 modelbutton > label {
-	margin-right: $spacer2;
+  margin-right: $spacer2;
 }
 
 button.color,
@@ -912,6 +915,8 @@ fontbutton {
  *********/
 %link,
 *:link {
+  text-decoration-line: underline;
+
   &:visited {
     *:selected & {
     }
@@ -961,7 +966,6 @@ button:visited {
   }
   > label {
     @extend %link;
-    text-decoration-line: underline;
 
     &:hover,
     &:active {
@@ -1090,8 +1094,9 @@ spinbutton {
 combobox,
 dropdown {
   arrow {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
+    padding: math.max(0, math.div($lengthInputBumpMin - $lengthIcon, 2));
     -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
   }
   &.linked {
@@ -1481,8 +1486,8 @@ treeview.view {
     }
   }
   &.expander {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
 
     &:dir(rtl) {
@@ -1630,8 +1635,8 @@ menu,
     }
     // Submenu arrows.
     arrow {
-      min-height: $widthIcon;
-      min-width: $widthIcon;
+      min-height: $lengthIcon;
+      min-width: $lengthIcon;
 
       &:dir(ltr) {
         margin-left: $spacer2;
@@ -1664,8 +1669,8 @@ menu,
   }
   // Overflow arrows.
   > arrow {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
     padding: $spacer;
 
     &.top {
@@ -1742,6 +1747,10 @@ popover.background {
   separator {
   }
   list separator {
+  }
+  label.separator.title {
+    margin-left: $spacer2;
+    margin-right: $spacer2;
   }
 }
 
@@ -2100,8 +2109,8 @@ switch {
     @include buttonBackground();
     @include borderBump();
     margin: -$spacerPx;
-    min-width: $lineHeight;
-    min-height: $lineHeight;
+    min-height: $lengthInputBumpMin;
+    min-width: $lengthInputBumpMin;
     padding: unset;
   }
   image {
@@ -2176,8 +2185,8 @@ radio {
   border-color: $colorAccentHigh;
   margin-left: $spacer;
   margin-right: $spacer;
-  min-height: $widthIcon;
-  min-width: $widthIcon;
+  min-height: $lengthInputSwitch;
+  min-width: $lengthInputSwitch;
   -gtk-icon-transform: scale($scaleCheck);
 
   &:only-child {
@@ -2851,8 +2860,8 @@ row {
 expander {
   &,
   title > arrow {
-    min-height: $widthIcon;
-    min-width: $widthIcon;
+    min-height: $lengthIcon;
+    min-width: $lengthIcon;
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
 
     &:dir(rtl) {
@@ -3531,19 +3540,19 @@ menubutton {
 
   arrow {
     &.none {
-      -gtk-icon-source: -gtk-icontheme('open-menu-symbolic');
+      -gtk-icon-source: -gtk-icontheme("open-menu-symbolic");
     }
     &.down {
-      -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+      -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
     }
     &.up {
-      -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+      -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
     }
     &.left {
-      -gtk-icon-source: -gtk-icontheme('pan-start-symbolic');
+      -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
     }
     &.right {
-      -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+      -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
     }
   }
 }

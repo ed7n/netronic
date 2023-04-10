@@ -47,7 +47,9 @@ headerbar {
     background-color: $colorTitlebarInactiveBackground;
 
     // Selector precedence workaround.
-    label:backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(:disabled) {
+    label:backdrop:not(:hover):not(:active):not(:checked):not(:selected):not(
+        :disabled
+      ) {
       color: $colorTitlebarInactive;
     }
   }

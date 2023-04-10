@@ -63,6 +63,8 @@ $colorGtkTextViewBg: $colorControls;
 @mixin button() {
   @include buttonBackground();
   @include borderBump();
+  min-height: $lengthInputBumpMin;
+  min-width: $lengthInputBumpMin;
   outline-offset: -$widthBorder2 - $widthOutlineFocus;
   padding: $paddingEntry;
 
@@ -103,7 +105,8 @@ $colorGtkTextViewBg: $colorControls;
   @include backgroundDent();
   @include borderDent();
   color: $colorAccentMax;
-  min-height: $lineHeight;
+  min-height: $lengthInputDentMin;
+  min-width: $lengthInputDentMin;
   padding: $paddingEntry;
 
   &:hover {
