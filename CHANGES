@@ -2,6 +2,10 @@ Netronic: Changes
 
 —Update 1
 
+——Revision 7, 12/21/2023.
+- WinRT theme registry values.
+- Swapped Wine light and dark colors in Wine dark scheme.
+
 ——Revision 6, 04/10/2023.
 - Explicit underlining of links.
 - Minimum metrices for GTK buttons.
